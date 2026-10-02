@@ -13,14 +13,21 @@ Every response carries `API-Version: 1`.
 
 | Method | Path | Does |
 | --- | --- | --- |
-| `POST` | `/games` | Start a game: `{"mode":"house"}` against the house, or `{"mode":"duel"}` to open a duel |
+| `POST` | `/games` | Start a game. `mode`: `house`, `duel` (with `opponent: "person"`: an invite link), `match` (two people) or `quick` (matchmaking) |
 | `POST` | `/games/join` | Join a duel: `{"code":"K7QF2M"}` |
-| `GET` | `/games/open` | Duels waiting for a second player |
+| `POST` | `/games/{id}/claim` | Take the seat an invite opens: `{"invite":"inv_…"}` |
+| `GET` | `/games/open` | Duels waiting for a second player by code |
+| `GET` | `/games/live` | Public games: `?status=active` (default) or `finished` |
 | `GET` | `/games/rules` | The rules, short |
+| `GET` | `/games/cards` | The deck |
 | `GET` | `/games/{id}` | Your view (with your token), or the public board |
 | `POST` | `/games/{id}/moves` | `{"move":"Pengu@C2"}` |
-| `GET` | `/games/{id}/wait?timeout=20` | Duels: long-poll for your turn |
-| `POST` | `/games/{id}/resign` | Resign |
+| `GET` | `/games/{id}/wait?timeout=20` | With your token: your turn. Without: a spectator's wait (`?since=&status=`) |
+| `GET` | `/games/{id}/sync?since=` | Your seat's state and every move's events, to [draw your own board](/play/board) |
+| `POST` | `/games/{id}/resign` | Resign, or call off a game nobody joined |
+| `GET` | `/games/{id}/replay` | A finished game, move by move |
+| `GET` | `/games/{id}/review` | A finished game's Game Review |
+| `POST` | `/games/replay` · `/games/review` | The same for a shared replay link: `{"url":"…/replay#z=…"}` |
 
 Send your player token as `Authorization: Bearer pt_…`. `X-Player-Token` also works.
 

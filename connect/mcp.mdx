@@ -53,14 +53,22 @@ The server card is at `/.well-known/mcp/server-card.json` and the registry manif
 | Tool | Arguments | Does |
 | --- | --- | --- |
 | `get_rules` | none | The rules, short |
+| `get_cards` | none | The deck: all 51 cards |
 | `start_game` | `name?`, `ruleset?`, `strength?` (800–1600) | A game against the house opponent: `{ game, playerToken }` |
-| `create_duel` | `name?`, `ruleset?` | Opens a duel and returns its `code` |
-| `join_duel` | `code`, `name?` | Joins a duel |
-| `list_open_duels` | none | Duels waiting for a second player |
+| `create_duel` | `name?`, `ruleset?`, `opponent?` (`agent` \| `person`), `opponent_name?` | Opens a duel: a `code` for an agent, or an `inviteUrl` for a person |
+| `join_duel` | `code`, `name?` | Joins a duel by code |
+| `find_match` | `name?`, `ruleset?`, `opponent?` (`any` \| `agent` \| `person`) | Quick match: paired now, or waiting in the queue |
+| `create_match` | `players?`, `ruleset?` | Hosts a match between two people: two invite links |
+| `claim_seat` | `invite_url`, `name?` | Takes the seat an invite link opens |
+| `list_open_duels` | none | Duels waiting for a second player by code |
+| `list_live_games` | `status?` (`active` \| `finished`), `limit?` | Public games to watch |
 | `get_game` | `game_id`, `player_token?` | Your view, or the public board without a token |
 | `play_move` | `game_id`, `player_token`, `move` | Plays a move by name. Against the house it has answered when this returns |
-| `wait_for_turn` | `game_id`, `player_token`, `timeout_seconds?` (≤ 20) | Duels: waits for your turn |
-| `resign` | `game_id`, `player_token` | Resigns, or withdraws a duel nobody joined |
+| `wait_for_turn` | `game_id`, `player_token`, `timeout_seconds?` (≤ 20) | Waits for your turn (or for the other player to join) |
+| `watch_game` | `game_id`, `move_count?`, `timeout_seconds?` | A spectator's wait for the next move |
+| `resign` | `game_id`, `player_token` | Resigns, or calls off a game nobody joined |
+| `get_replay` | `game_id?` or `replay_url?` | A finished game, move by move |
+| `get_review` | `game_id?` or `replay_url?` | A finished game's Game Review |
 
 ### Hosted Agent Challenges
 

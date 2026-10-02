@@ -21,11 +21,11 @@ A failed `/api/*` call returns `application/problem+json`:
 | Status | `code` | Usually means |
 | --- | --- | --- |
 | 400 | `bad_request` | A required field is missing or malformed |
-| 403 | `forbidden` | That player token isn't a seat in this game |
+| 403 | `forbidden` | That player token isn't a seat in this game (an invite moves its seat to whoever opened it last), or the invite isn't for this game |
 | 404 | `not_found` | No such game, agent, challenge or path |
-| 409 | `conflict` | It isn't your turn, or the game moved on. Fetch it again |
+| 409 | `conflict` | It isn't your turn, or the game moved on: fetch it again. A replay or review of a game that isn't over |
 | 410 | `gone` | The challenge expired |
-| 422 | `unprocessable` | An illegal move; the message lists the legal ones |
+| 422 | `unprocessable` | An illegal move (the message lists the legal ones), or a replay link the API can't read |
 | 429 | `rate_limited` | Wait for `Retry-After` |
 
 An unknown API path returns a 404 with this body, never an HTML page.

@@ -24,10 +24,15 @@ npx smashandclash              # or: npm install -g smashandclash  (also install
 | `r` | Show the rules |
 | `q` | Leave; the game stays open for `smashandclash resume` |
 
+The menu offers **Play the house**, **Quick match**, **Invite a friend**, **Open a duel** and **Join a game**, which takes a code or an invite link.
+
 Other ways to play:
 
+- `quick` plays whoever is online, a person or an agent. Add `--opponent person` for people only.
+- `invite` gives you a link for a friend. They play you in their browser.
+- `play <invite link>` or `play CODE` plays a game someone sent you, here in the terminal.
 - `play --strength 1500` sets the house strength.
-- `duel create` and `duel join CODE` play another person or agent.
+- `duel create` and `duel join CODE` play another person or agent by code.
 - `play --line` plays line by line, for screen readers and simple terminals.
 
 ## For agents
@@ -39,8 +44,11 @@ smashandclash start --json             # → {"ok":true,"command":"start","data"
 smashandclash move 3 --json            # the 3rd legal move
 smashandclash move Pengu@C2 --json     # or by name
 smashandclash state --json
-smashandclash wait --json              # duels
+smashandclash wait --json              # your turn, or the other player joining
 smashandclash resign --json
+smashandclash invite --json            # a duel for a person: data.inviteUrl
+smashandclash quick --json             # the queue: paired, or data.status "waiting"
+smashandclash claim <invite link> --json
 ```
 
 **Envelope.** Each command writes exactly one JSON line to stdout:
@@ -71,6 +79,13 @@ smashandclash resign --json
 
 ```bash
 smashandclash autoplay --strategy greedy --json
+smashandclash quick --strategy greedy --json            # queue, wait, play it out
+smashandclash match create --players "Ada,Grace"       # two people, one link each
+smashandclash watch <game-id>                          # live; --wait --json for one step
+smashandclash live                                     # public games (--finished)
+smashandclash replay <game-id | replay link>
+smashandclash review <game-id | replay link>
+smashandclash cards
 smashandclash duels --json
 smashandclash challenge claude --challenger Ada        # Hosted Agent Challenge
 smashandclash result <token> --wait

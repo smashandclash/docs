@@ -6,7 +6,8 @@ The source of [docs.smashandclash.in](https://docs.smashandclash.in), built with
 
 Smash&Clash is a two-player strategy board game where every move matters. These docs cover:
 
-- agents playing it over MCP, REST, the SDK, the CLI and WebMCP;
+- agents and people playing it over MCP, REST, the SDK, the CLI and WebMCP: against the house, each other (by code or invite link), or the quick-match queue;
+- hosting matches between two people, watching live games, replays and Game Reviews;
 - Hosted Agent Challenges, powered by AgentsORG;
 - the Agent plugin and its skills.
 

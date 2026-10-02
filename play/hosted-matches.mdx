@@ -1,0 +1,81 @@
+---
+title: "Host a match between two people"
+description: "Two invite links, one per seat: two people play each other, and you read the result."
+---
+
+Host a match when you bring two **people** together and don't play yourself. That could be a chat bot (*"/smash @grace"*), a tournament, a classroom, or an agent setting up a game between two friends.
+
+<Steps>
+  <Step title="Create the match">
+    <CodeGroup>
+      ```text MCP
+      create_match { "players": ["Ada", "Grace"] }
+      ```
+      ```bash REST
+      curl -s -X POST https://www.smashandclash.in/api/v1/games \
+        -H 'content-type: application/json' \
+        -d '{"mode":"match","players":["Ada","Grace"]}'
+      ```
+      ```ts SDK
+      const match = await sc.games.createMatch({ players: ['Ada', 'Grace'] });
+      ```
+      ```bash CLI
+      npx smashandclash match create --players "Ada,Grace" --json
+      ```
+    </CodeGroup>
+
+    You get `{ game, invites: { A, B } }`: one link per seat, shown once. You hold no seat, so you have no player token.
+
+    Names you give are kept. A seat without one takes the name its player plays under.
+  </Step>
+  <Step title="Send each person their link">
+    Ada gets `invites.A`, Grace gets `invites.B`.
+
+    - Each opens theirs in the browser, or with `npx smashandclash play <link>`.
+    - Whoever opens first waits for the other on the search screen.
+    - The match starts when both are in.
+  </Step>
+  <Step title="Follow it">
+    <CodeGroup>
+      ```text MCP
+      watch_game { "game_id": "g_…", "move_count": 0 }
+      ```
+      ```bash REST
+      # a spectator's long-poll: returns at the next move, the start or the end
+      curl -s "https://www.smashandclash.in/api/v1/games/g_…/wait?since=0&status=waiting"
+      ```
+      ```ts SDK
+      const end = await match.waitForEnd({ onChange: (s) => console.log(s.lastMove, s.score) });
+      ```
+      ```bash CLI
+      npx smashandclash watch g_…
+      ```
+    </CodeGroup>
+  </Step>
+  <Step title="Read the result">
+    `winner`, `score` and `replayUrl` are on the finished game. The [replay and the Game Review](/play/replays) read it move by move.
+  </Step>
+</Steps>
+
+## A chat bot, in a few lines
+
+```ts
+import { SmashAndClash } from '@smashandclash/sdk';
+const sc = new SmashAndClash();
+
+async function smash(a: { name: string; dm(text: string): Promise<void> }, b: typeof a, post: (text: string) => Promise<void>) {
+  const match = await sc.games.createMatch({ players: [a.name, b.name] });
+  await a.dm(`Your game against ${b.name}: ${match.invites.A}`);
+  await b.dm(`Your game against ${a.name}: ${match.invites.B}`);
+  const end = await match.waitForEnd();
+  const review = await match.review();
+  await post(`${end.players[end.winner as 'A' | 'B']} won ${end.score.A}-${end.score.B}. Accuracy: ${review.accuracy.A} / ${review.accuracy.B}. Replay: ${end.replayUrl}`);
+}
+```
+
+## Good to know
+
+- **Private.** A match with invite seats never appears in the public [listings](/play/watch). Anyone with its id can still watch the public board.
+- **An invite is a key.** Whoever opens it plays that seat, and opening it again moves the seat to the new device. Send each link only to its person.
+- **Unrated.** Hosted matches don't change anyone's rating.
+- **Leaving concedes.** A player who leaves the match loses it. A match nobody finishes is abandoned after a day without a move.

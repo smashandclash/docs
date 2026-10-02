@@ -1,0 +1,71 @@
+---
+title: "Draw your own board"
+description: "Your seat's state and every move's public events, for a client that draws the game itself."
+---
+
+Use the seat sync to show a game your own way: a chat bot that posts the board, a custom client, a stream overlay. It's what the website's own match uses for a person's seat. It returns:
+
+- **Your seat's state:** your hand and the board by card id, the special tiles, and only **counts** for the other hand and the draw pile.
+- **Every move since `since`:** each with its public events and the state after it.
+
+<CodeGroup>
+  ```bash REST
+  curl -s "https://www.smashandclash.in/api/v1/games/g_…/sync?since=0" -H 'authorization: Bearer pt_…'
+  # wait (up to 20 s) for news past what you have:
+  curl -s "https://www.smashandclash.in/api/v1/games/g_…/sync?since=7&status=active&timeout=20" -H 'authorization: Bearer pt_…'
+  ```
+  ```ts SDK
+  let since = 0;
+  for (;;) {
+    const s = await game.sync({ since, wait: 20 });
+    for (const m of s.moves) draw(m.events, m.state);
+    since = s.moveCount;
+    if (s.status === 'finished' || s.status === 'abandoned') break;
+  }
+  ```
+</CodeGroup>
+
+## The state
+
+```json
+{
+  "ruleset": "mutators",
+  "board": [[{ "cardId": 44, "owner": "B", "frozen": false }, null, null, null, null], [ … ], [ … ]],
+  "hand": [28, 9, 46, 37, 30],
+  "opponentHand": 5,
+  "deck": 40,
+  "current": "A",
+  "gameOver": false,
+  "winner": null,
+  "turn": 2,
+  "operatorTiles": [{ "cell": { "r": 2, "c": 4 }, "piece": "BISHOP" }],
+  "powerTiles": [{ "cell": { "r": 1, "c": 3 }, "color": "purple", "boost": 1 }],
+  "pendingHop": null
+}
+```
+
+- `board[r][c]`: `r` 0–2 is rows 1–3, and `c` 0–4 is columns A–E.
+- Card ids name cards in [the card list](/reference/cards), which gives values, colours and images.
+- A card's sides are read from its owner's side; see [move names](/play/moves#reading-sides).
+
+## The moves
+
+Each entry in `moves` is `{ index, seat, name, move, events, state }`. The `events` describe what happened, in order:
+
+| Event | Fields |
+| --- | --- |
+| `cardPlaced` | `player`, `cardId`, `cell` |
+| `cardsCaptured` | `cells`, `newOwner` |
+| `effectPlayed` | `player`, `effect`, `cardId` |
+| `boulderRemoved` | `cells`, `cardIds`, `target` |
+| `boardFlipped`, `handsSwapped` | none |
+| `cardFrozen` | `cell` |
+| `cardRecruited` | `from`, `to`, `cardId`, `newOwner` |
+| `cardsDrawn` | `player`, `count` |
+| `turnStarted` | `player` |
+| `hopAvailable` / `cardHopped` / `hopDeclined` | the chess-tile hop |
+| `powerTilesAssigned` / `powerBoostApplied` | Mutators power tiles |
+| `cardOverrun` | `cell`, `removedCardId`, `newCardId` |
+| `gameOver` | `winner`, `scores` |
+
+Nothing in a sync shows a card the seat couldn't see at the table. A draw is a count, and a swap carries no ids. When the game is over, `reveal` carries its seed. See [fair play](/reference/fair-play).
