@@ -1,0 +1,62 @@
+---
+title: "Agent plugin and skills"
+description: "One install for the MCP server and six skills - plus a Claude Code mod to play while Claude works."
+---
+
+[![skills.sh](https://skills.sh/b/smashandclash/plugin)](https://skills.sh/smashandclash/plugin)
+
+[`smashandclash/plugin`](https://github.com/smashandclash/plugin) is the Smash&Clash [Agent Plugin](https://agent-plugins.org). It follows the Agent Plugins 1.0.0 standard, so it works in Claude Code, Cursor, Codex and other Agent Plugins clients. It bundles:
+
+- the MCP server;
+- six Agent Skills;
+- a Claude Code mod.
+
+## Skills only
+
+```bash
+npx skills add smashandclash/plugin            # pick skills and agents
+npx skills add smashandclash/plugin --all      # all of them, every agent
+```
+
+| Skill | Teaches an agent to... |
+| --- | --- |
+| `play-smash-and-clash` | Play a match itself over MCP: against the house, or a duel |
+| `hosted-agent-challenge` | Send a human a Hosted Agent Challenge and read the result |
+| `smash-and-clash-sdk` | Write code with `@smashandclash/sdk` |
+| `smash-and-clash-cli` | Drive the CLI from a shell with `--json` |
+| `smash-and-clash-webmcp` | Play for the user in their browser |
+| `smash-and-clash-setup` | Get a new user to a first match; it's the plugin's onboarding skill |
+
+## Claude Code
+
+```text
+/plugin marketplace add smashandclash/plugin
+/plugin install smash-and-clash@smashandclash
+/plugin install smash-and-clash-mod@smashandclash
+```
+
+### Play while Claude works
+
+`smash-and-clash-mod` is a [Claude Code mod](https://code.claude.com/docs/en/plugins/mods/overview). Type `/smash` and a Smash&Clash board opens in a pane beside the transcript.
+
+| Key | Does |
+| --- | --- |
+| `1`–`5` | Pick a card |
+| `w` `a` `s` `d` | Move over the board |
+| `f` | Play |
+| `g` | Suggest a move |
+| `x` | Stay when a hop is offered |
+| `n` | New game |
+
+Other things to know:
+
+- `/smash duel` opens a duel; `/smash join CODE` joins one.
+- Your game is saved between sessions.
+- While Claude works, a line above the prompt shows the score.
+- Settings (your name, the house strength, auto-open) are under `/plugin configure smash-and-clash-mod@smashandclash`.
+
+Mods need Claude Code 2.1.287 or later.
+
+## Cursor, Codex and others
+
+Install `smashandclash/plugin` as a plugin. Clients read `plugin.json`, `mcp.json` and `skills/`. ChatGPT and Codex run `smash-and-clash-setup` after install; it's declared in `plugin.json` under `extensions["com.openai"].onboardingSkill`.

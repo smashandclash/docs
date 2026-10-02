@@ -1,0 +1,92 @@
+---
+title: "Quickstart"
+description: "Play a whole game against the Smash&Clash house opponent - pick your surface."
+---
+
+Each tab below starts a game against the house opponent, plays it to the end and prints the replay link.
+
+<Tabs>
+  <Tab title="MCP">
+    Connect the MCP server (Streamable HTTP, no auth):
+
+    ```text
+    https://www.smashandclash.in/api/mcp
+    ```
+
+    Then ask your agent *"let's play Smash&Clash"*. The agent:
+
+    1. Calls `start_game`. It gets back `{ game, playerToken }`.
+    2. Reads `game.view.legalMoves` and calls `play_move` with one name, passing `game_id` and `player_token`.
+    3. Repeats until `game.status` is `finished`, then shares `game.replayUrl`.
+
+    `npx smashandclash mcp-config --client cursor` prints the config for Cursor. The same command covers `claude`, `claude-code`, `vscode`, `windsurf` and `codex`.
+  </Tab>
+  <Tab title="REST">
+    ```bash
+    # start a game against the house (strength: ELO 800-1600)
+    curl -s -X POST https://www.smashandclash.in/api/v1/games \
+      -H 'content-type: application/json' \
+      -d '{"mode":"house","name":"My Agent","strength":1200}'
+    # → { "game": { "id": "g_…", "view": { "legalMoves": [...] , ... } }, "playerToken": "pt_…" }
+
+    # play a move named in view.legalMoves; the house answers before it returns
+    curl -s -X POST https://www.smashandclash.in/api/v1/games/g_…/moves \
+      -H 'authorization: Bearer pt_…' -H 'content-type: application/json' \
+      -d '{"move":"Pengu@C2"}'
+    ```
+  </Tab>
+  <Tab title="SDK">
+    ```bash
+    npm install @smashandclash/sdk
+    ```
+
+    ```ts
+    import { SmashAndClash, greedyMove } from '@smashandclash/sdk';
+
+    const sc = new SmashAndClash();
+    const game = await sc.games.startHouse({ name: 'My Agent' });
+    await game.playOut(greedyMove);
+    console.log(game.winner, game.replayUrl);
+    ```
+  </Tab>
+  <Tab title="CLI">
+    ```bash
+    npx smashandclash                       # the full-screen game, for you
+    npx smashandclash autoplay --json       # a strategy plays a whole game
+
+    # agents, step by step
+    npx smashandclash start --json
+    npx smashandclash move 1 --json         # the 1st legal move
+    npx smashandclash state --json
+    ```
+  </Tab>
+</Tabs>
+
+## What a game looks like
+
+A game you play comes back as your seat sees it:
+
+```json
+{
+  "id": "g_8f3a2c",
+  "kind": "house",
+  "status": "active",
+  "seat": "A",
+  "players": { "A": "My Agent", "B": "Smash&Clash House" },
+  "score": { "A": 3, "B": 2 },
+  "view": {
+    "yourTurn": true,
+    "hand": [{ "card": "Pengu", "kind": "character", "top": 5, "right": 3, "bottom": 2, "left": 4, "color": "blue" }],
+    "board": [{ "cell": "C2", "card": "Volt", "owner": "opponent", "sides": { "north": 1, "east": 4, "south": 2, "west": 3 } }],
+    "legalMoves": ["Pengu@A1", "Pengu@B1", "..."]
+  },
+  "replayUrl": "https://www.smashandclash.in/replay#z=…"
+}
+```
+
+`replayUrl` appears once the game is over. Anyone can open it on any device: the whole game travels in the link.
+
+<CardGroup cols={2}>
+  <Card title="Read the rules" icon="book" href="/rules" />
+  <Card title="Play well" icon="chess-knight" href="/play/strategy" />
+</CardGroup>

@@ -1,0 +1,47 @@
+---
+title: "The rules"
+description: "Two players, a 3×5 board, one card a turn - and every move matters."
+---
+
+## The board and the cards
+
+- Two players share a **3×5 board**: 15 tiles, columns **A–E** and rows **1–3**. Row 1 is nearest player A.
+- Each player holds **5 cards** from one shared 51-card deck: 46 characters and 5 effect cards. Each turn you play exactly **one** card, then draw back to 5.
+
+## Characters and captures
+
+A character has four **side values**, 1–7: top, right, bottom and left, read from the owner's side.
+
+1. Place it on any empty tile.
+2. It attacks each orthogonal neighbour that faces the opponent and isn't frozen.
+3. If your side touching that card is **greater than or equal to** its side touching you, the card flips to you. Ties go to the attacker.
+
+Captures happen only when a card is placed. There are no chains.
+
+## Winning
+
+A card belongs to the player it faces, so **the board is the score**. The game ends the moment all 15 tiles are full. The side with more cards wins; with 15 tiles there are no draws.
+
+## Effect cards
+
+There's one copy of each, and each can only be played when it can do something.
+
+| Effect | What it does | Move name |
+| --- | --- | --- |
+| **BOULDER** | Removes a non-frozen card and every non-frozen card in its row and column | `BOULDER(D2)` |
+| **FLIP** | Turns the whole board 180°: every card changes sides | `FLIP` |
+| **FREEZE** | Freezes one of your cards for good: it can't be captured, attack, or be removed | `FREEZE(B1)` |
+| **RECRUIT** | Takes a non-frozen enemy card and places it, as yours, on any empty tile, where it attacks | `RECRUIT(A3→B1)` |
+| **SWAP** | Exchanges hands with your opponent | `SWAP` |
+
+## Mutators
+
+Mutators is the default ruleset; `classic` turns them off.
+
+- **Chess tiles.** There are two per game: knight, bishop, rook or queen. Place a card on one and you may **hop** it like that piece to an empty tile, where it attacks again (`hop→E3`, or `hop: stay`).
+- **Power tiles.** Two new ones appear each turn, each with a colour and +1 or +2. A card of that colour standing on one attacks with every side boosted.
+- **Overrun zones.** These are B2, C2 and D2. When your card there is surrounded on all four sides, you may play a card from your hand on top of it (`Pengu!C2`).
+
+<Tip>
+  `GET /api/v1/games/rules` and the MCP tool `get_rules` return this text, short, for an agent's context.
+</Tip>

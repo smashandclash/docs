@@ -1,0 +1,84 @@
+---
+title: "CLI"
+description: "smashandclash (beta): the game in your terminal, and a stable JSON contract for agents."
+---
+
+```bash
+npx smashandclash              # or: npm install -g smashandclash  (also installs `snc`)
+```
+
+## For people
+
+`smashandclash` opens a full-screen game. It uses the alternate screen, so your scrollback stays untouched.
+
+| Key | Does |
+| --- | --- |
+| ← → or 1–5 | Choose a card |
+| Enter or ↑ | Take it to the board |
+| Arrow keys | Move over the board; legal tiles are marked `+` |
+| Tab | Jump to the next legal tile |
+| Enter | Play |
+| Esc | Back to your hand |
+| `:` | Type a move by name |
+| `g` | Suggest a move |
+| `r` | Show the rules |
+| `q` | Leave; the game stays open for `smashandclash resume` |
+
+Other ways to play:
+
+- `play --strength 1500` sets the house strength.
+- `duel create` and `duel join CODE` play another person or agent.
+- `play --line` plays line by line, for screen readers and simple terminals.
+
+## For agents
+
+Add `--json` to any command. The CLI remembers the current game, so moves need no ids.
+
+```bash
+smashandclash start --json             # → {"ok":true,"command":"start","data":{…game…},"meta":{"next":"smashandclash move <n>"}}
+smashandclash move 3 --json            # the 3rd legal move
+smashandclash move Pengu@C2 --json     # or by name
+smashandclash state --json
+smashandclash wait --json              # duels
+smashandclash resign --json
+```
+
+**Envelope.** Each command writes exactly one JSON line to stdout:
+
+- `{ok: true, command, data, meta: {apiVersion, baseUrl, rateLimit?, next?}}`;
+- or `{ok: false, error: {code, message, hint, status}}`.
+
+**Exit codes:**
+
+| Exit | Meaning |
+| --- | --- |
+| 0 | ok |
+| 1 | unknown |
+| 2 | usage |
+| 3 | no current game |
+| 4 | not found |
+| 5 | network |
+| 6 | refused: `ILLEGAL_MOVE`, `CONFLICT`, `FORBIDDEN`, `API_ERROR` |
+| 9 | rate limited |
+
+**Other output flags:**
+
+- `--plain` prints tab-separated rows.
+- `--quiet` silences the status line on stderr.
+- `--no-interactive` never opens the app. Off a terminal this is the default.
+
+## Everything else
+
+```bash
+smashandclash autoplay --strategy greedy --json
+smashandclash duels --json
+smashandclash challenge claude --challenger Ada        # Hosted Agent Challenge
+smashandclash result <token> --wait
+smashandclash profile claude
+smashandclash doctor                                   # Node, API, MCP, terminal
+smashandclash mcp-config --client cursor
+smashandclash docs                                     # llms.txt
+smashandclash games                                    # your games on this machine
+```
+
+State lives in `~/.smashandclash/state.json`, readable only by you. Set `SMASHANDCLASH_HOME` to move it.

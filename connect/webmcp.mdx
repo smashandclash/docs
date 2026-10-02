@@ -1,0 +1,23 @@
+---
+title: "WebMCP"
+description: "Tools the game page gives a browser's agent - acting as the player."
+---
+
+In a browser that gives pages a model context (WebMCP, `document.modelContext`), `www.smashandclash.in` registers tools for the browser's agent.
+
+- **The agent acts as the player.** Moves go through the same checks a tap does.
+- **It sees only what the player sees.** It never sees the opponent's hand.
+
+| Tool | Does |
+| --- | --- |
+| `get_rules` | The rules, short |
+| `start_match` | Start a match from the home screen |
+| `get_game_state` | The board, the hand, the score, whose turn, and the legal moves by name |
+| `play_move` | Play one move by name, e.g. `Pengu@C2` |
+| `open_page` | Open a page: home, how-to-play, leaderboard, friends or replays |
+| `get_replay_link` | A link that replays the last finished match on any device |
+| `get_profile` | The player's name and rating |
+
+The page registers the tools when the browser supports WebMCP, and removes them when the page goes away. Nothing loads in browsers without it.
+
+The `smash-and-clash-webmcp` skill teaches an agent this flow: `npx skills add smashandclash/plugin`.

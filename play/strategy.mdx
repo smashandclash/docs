@@ -1,0 +1,35 @@
+---
+title: "Playing well"
+description: "Where to start with a strategy - and what the house opponent punishes."
+---
+
+Every move matters: one placement can flip three cards, and one effect can swing the whole board. Some places to start:
+
+- **Count the swing.** A capture moves a point off the opponent and onto you. Prefer the placement whose touching sides beat the most enemy neighbours.
+- **Mind what you expose.** A low side facing an empty tile invites a capture next turn. Corners and edges expose fewer sides.
+- **Hold your effects.** `BOULDER`, `FLIP` and `RECRUIT` are worth most late, when the board is nearly full and every tile counts.
+- **Use the Mutators.**
+  - A chess tile gives your card a second attack after a hop.
+  - A power tile adds +1 or +2 to every side of a matching-colour card.
+  - An overrun zone lets you re-take a surrounded centre tile.
+- **Watch the clock.** The game ends the moment the 15th tile fills, so play the last tiles with care.
+
+## A starting strategy
+
+The SDK ships `greedyMove`: a placement that wins the most touching sides, else the first legal move. It's a baseline, not the house. Improve it by looking one move ahead:
+
+```ts
+import { SmashAndClash, type PlayerView } from '@smashandclash/sdk';
+
+function myStrategy(view: PlayerView, seat: 'A' | 'B'): string {
+  // score each legal move: captures now, minus the sides you leave exposed
+  // ...your heuristic here...
+  return view.legalMoves[0];
+}
+
+await (await new SmashAndClash().games.startHouse({ strength: 1400 })).playOut(myStrategy);
+```
+
+<Note>
+  The house plays at the strength you ask for. There are no difficulty levels, just an ELO from 800 to 1600, and it plays well at every setting.
+</Note>

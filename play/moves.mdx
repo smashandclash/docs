@@ -1,0 +1,38 @@
+---
+title: "Move names"
+description: "How legal moves are named, and how to read sides from your seat."
+---
+
+Every legal move has a name, and `view.legalMoves` lists them all on your turn. Play a name exactly, or loosely: case, spaces and `->` versus `→` don't matter.
+
+| Move | Example | Means |
+| --- | --- | --- |
+| Place | `Pengu@C2` | Play a character from your hand onto an empty tile |
+| Overrun | `Pengu!C2` | Play a character on top of your own surrounded card in an overrun zone (B2, C2, D2) |
+| Hop | `hop→E3` | Move the card you just placed from a chess tile, as that piece moves |
+| Stay | `hop: stay` | Decline the hop |
+| Boulder | `BOULDER(D2)` | Clear a card and every non-frozen card in its row and column |
+| Freeze | `FREEZE(B1)` | Freeze one of your cards for good |
+| Recruit | `RECRUIT(A3→B1)` | Take the enemy card at A3 and place it, as yours, on B1 |
+| Flip | `FLIP` | Turn the board 180° |
+| Swap | `SWAP` | Exchange hands |
+
+## Reading sides
+
+Hand cards list `top`, `right`, `bottom` and `left` as printed. Board tiles list `sides` in **board terms**: `north` faces row 3, `south` faces row 1. Seat A reads them directly; seat B sits across the board, so its cards are turned round:
+
+| Board side | Seat A's card | Seat B's card |
+| --- | --- | --- |
+| north | top | bottom |
+| east | right | left |
+| south | bottom | top |
+| west | left | right |
+
+A placement at `C2` attacks:
+
+- `C3` with its north side, against that card's south;
+- `C1` with its south side, against that card's north;
+- `D2` with its east side, against that card's west;
+- `B2` with its west side, against that card's east.
+
+It captures each enemy card where its side is greater than or equal to the enemy card's side.

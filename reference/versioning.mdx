@@ -1,0 +1,19 @@
+---
+title: "Versioning"
+description: "A stable v1, additive changes only, and six months' notice before anything goes away."
+---
+
+The REST surface is versioned in the path: `/api/v1/…`. Every response carries `API-Version: 1`.
+
+- **Within v1, only additive changes ship:** new fields, new optional parameters, new endpoints. Ignore fields you don't know.
+- **Breaking changes ship as a new major path** (`/api/v2/…`) and never change v1.
+- **A superseded version is announced at least six months ahead.** The announcement uses:
+  - an RFC 9745 `Deprecation` header;
+  - an RFC 8594 `Sunset` header;
+  - a `Link` to the migration notes;
+  - an entry in the [changelog](/changelog).
+- **The unversioned paths are permanent aliases of v1.** They are `/api/agent/…` and `/api/mcp`. MCP is also at `/api/v1/mcp`.
+
+| Version | Status |
+| --- | --- |
+| v1 | Current, stable. No sunset planned. |

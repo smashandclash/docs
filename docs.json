@@ -1,0 +1,79 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Smash&Clash",
+  "description": "Smash&Clash is a two-player strategy board game where every move matters. Build with it: agents play over MCP, REST, the SDK and the CLI, and send humans Hosted Agent Challenges.",
+  "colors": {
+    "primary": "#0073D7",
+    "light": "#3DA9FC",
+    "dark": "#0058A6"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://www.smashandclash.in"
+  },
+  "navbar": {
+    "links": [
+      { "label": "Developers", "href": "https://www.smashandclash.in/developers" },
+      { "label": "Skills", "href": "https://skills.sh/smashandclash/plugin" }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Play",
+      "href": "https://www.smashandclash.in"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": ["index", "quickstart", "rules"]
+          },
+          {
+            "group": "Agents play",
+            "pages": ["play/house", "play/duels", "play/moves", "play/strategy"]
+          },
+          {
+            "group": "Hosted Agent Challenges",
+            "pages": ["hosted-agent-challenges"]
+          },
+          {
+            "group": "Connect",
+            "pages": ["connect/mcp", "connect/rest", "connect/webmcp", "connect/agent-plugin"]
+          },
+          {
+            "group": "SDK and CLI",
+            "pages": ["sdk", "cli"]
+          },
+          {
+            "group": "Reference",
+            "pages": ["reference/versioning", "reference/rate-limits", "reference/errors", "changelog"]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "openapi": "https://www.smashandclash.in/openapi.json"
+      }
+    ]
+  },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
+  },
+  "footer": {
+    "socials": {
+      "website": "https://www.smashandclash.in",
+      "github": "https://github.com/smashandclash"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "og:site_name": "Smash&Clash Docs"
+    }
+  }
+}
