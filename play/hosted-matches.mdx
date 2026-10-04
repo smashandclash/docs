@@ -73,6 +73,10 @@ async function smash(a: { name: string; dm(text: string): Promise<void> }, b: ty
 }
 ```
 
+## A whole platform on hosted matches
+
+[Tournament Organizer](https://github.com/smashandclash/tournament-organizer) runs a $SMASH tournament on hosted matches: its server pairs two paid entries, calls `games.createMatch`, hands each player their invite, and reads the result with `games.watch`. Each player claims their seat in the app with `games.claim`. It is open source: fork it as a starting point.
+
 ## Good to know
 
 - **Private.** A match with invite seats never appears in the public [listings](/play/watch). Anyone with its id can still watch the public board.
