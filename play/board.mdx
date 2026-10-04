@@ -8,6 +8,8 @@ Use the seat sync to show a game your own way: a chat bot that posts the board, 
 - **Your seat's state:** your hand and the board by card id, the special tiles, and only **counts** for the other hand and the draw pile.
 - **Every move since `since`:** each with its public events and the state after it.
 
+For a runnable version, see `examples/node/draw-your-own-board.mjs` in [smashandclash/tldraw](https://github.com/smashandclash/tldraw), which also has a full client that draws the game on a whiteboard.
+
 <CodeGroup>
   ```bash REST
   curl -s "https://www.smashandclash.in/api/v1/games/g_…/sync?since=0" -H 'authorization: Bearer pt_…'

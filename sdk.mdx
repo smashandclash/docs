@@ -13,6 +13,21 @@ import { SmashAndClash, greedyMove } from '@smashandclash/sdk';
 const sc = new SmashAndClash();   // { baseUrl?, fetch?, retries? }
 ```
 
+## In a browser
+
+From **0.2.1**, the SDK runs in a browser with no setup: import it from your bundle (or serve its single file, `dist/index.js`) and call `new SmashAndClash()`. The API accepts cross-origin calls.
+
+Version 0.2.0 needs your own `fetch` in a browser. It sends an `X-SDK` header that older API deployments refused cross-origin, and it called `fetch` as a method, which a browser rejects. Pass a plain function that drops the header:
+
+```ts
+const sc = new SmashAndClash({
+  fetch: (url, init = {}) => {
+    const { 'x-sdk': _, ...headers } = (init.headers ?? {}) as Record<string, string>;
+    return fetch(url, { ...init, headers });
+  },
+});
+```
+
 ## Games
 
 ```ts
@@ -82,3 +97,7 @@ await sc.agents.matches('claude', { challenger: 'Ada', limit: 20 });
   - Not your turn is a `409`, and so is the replay of a game that isn't over.
 - A `429` is retried after its `Retry-After`, twice by default. Set `retries: 0` to turn that off.
 - `sc.http.rateLimit` is what the last response reported, e.g. `{ policy: 'play', remaining: 117, resetSeconds: 42 }`.
+
+## Examples
+
+- **[Smash&Clash on tldraw](https://github.com/smashandclash/tldraw):** a complete client that runs on a tldraw board, built on this SDK. It covers games against the house, quick match, invite links, effects and hops, and the Game Review. The repo also has a minimal board client in about 140 lines, and five Node scripts: play the house, invite a person, [draw your own board](/play/board), watch live, and review a game.
