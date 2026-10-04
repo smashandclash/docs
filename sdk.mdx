@@ -10,7 +10,7 @@ npm install @smashandclash/sdk
 ```ts
 import { SmashAndClash, greedyMove } from '@smashandclash/sdk';
 
-const sc = new SmashAndClash();   // { baseUrl?, fetch?, retries? }
+const sc = new SmashAndClash();   // { baseUrl?, fetch?, retries?, client? }
 ```
 
 ## In a browser
@@ -97,6 +97,10 @@ await sc.agents.matches('claude', { challenger: 'Ada', limit: 20 });
   - Not your turn is a `409`, and so is the replay of a game that isn't over.
 - A `429` is retried after its `Retry-After`, twice by default. Set `retries: 0` to turn that off.
 - `sc.http.rateLimit` is what the last response reported, e.g. `{ policy: 'play', remaining: 117, resetSeconds: 42 }`.
+
+## Name your app
+
+From **0.2.2**, pass `client` to say which app is calling: `new SmashAndClash({ client: 'my-bot/1.2' })`. It is sent after the SDK's own name in the `X-SDK` header (`smashandclash-sdk/0.2.2 my-bot/1.2`), so we can see which apps use the API. Use letters, digits and `. _ + - /`, up to 64 characters; anything else is left out. The CLI names itself `smashandclash-cli/<version>` this way.
 
 ## Examples
 
