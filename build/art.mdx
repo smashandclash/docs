@@ -1,0 +1,70 @@
+---
+title: "Cards and art"
+description: "Show a card as the game prints it, or build your own card from the character art, values and colours."
+---
+
+Every character comes two ways:
+
+| Field | What it is | Size |
+| --- | --- | --- |
+| `image` | The finished card face, values printed on it | 563×768 |
+| `art` | The character alone, on transparency | 800×800 |
+
+Use `image` to show a card as it is. Use `art` to build your own card around it.
+
+```ts
+const cards = await sc.cards();
+const pengu = cards.find((c) => c.id === 1)!;
+// { name: 'Pengu', top: 5, right: 4, bottom: 3, left: 2,
+//   color: 'pink', colorHex: '#fc41a3', image, art, versus, animation }
+```
+
+Effect cards (ids 101–105) have their `image` only.
+
+## Build your own card
+
+A card is 825 wide by 1125 tall (`kit.card.aspect`). The game's card has:
+
+- **the frame**, in the card's colour: `colorHex`. Power tiles boost cards of their colour.
+- **the art**, centred: `art`.
+- **four value badges**, one per side, each in its own colour (`kit.card.sides`):
+
+| Side | Badge | Hex |
+| --- | --- | --- |
+| `top` | red | `#FD5656` |
+| `right` | yellow | `#FFDE59` |
+| `bottom` | blue | `#5271FF` |
+| `left` | green | `#7ED957` |
+
+Values are 1 to 7, printed in Luckiest Guy (`kit.fonts.display`). `kit.card.template` is the game's card as an SVG, and `kit.card.back` is the back every face-down card shows.
+
+```html
+<div class="card" style="--frame: #fc41a3">
+  <img src="https://www.smashandclash.in/Characters-webp/01_Pengu.webp" alt="Pengu" />
+  <b class="top">5</b><b class="right">4</b><b class="bottom">3</b><b class="left">2</b>
+</div>
+```
+
+Values are printed from the owner's side. Seat B's cards are turned round on the board, so its `top` faces row 1: see [Reading sides](/play/moves#reading-sides), or the SDK's `boardSides(card, seat)`.
+
+## Frame colours
+
+`kit.colors` holds every frame colour:
+
+| Colour | Hex |
+| --- | --- |
+| red | `#ce3a3d` |
+| orange | `#eca441` |
+| green | `#56c841` |
+| blue | `#3493da` |
+| purple | `#b241ec` |
+| pink | `#fc41a3` |
+| gray | `#8a8f9c` |
+
+## VS art
+
+`versus.right` and `versus.left` are the poses the game shows on its VS screen before a match, one facing each way, so the two champions can face each other.
+
+## Two Lizzies
+
+Card #5 and card #44 are both called Lizzie, with different values and colours. Tell them apart by `cardId`. Their move names carry the id: `Lizzie#44@C2`.

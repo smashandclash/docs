@@ -85,7 +85,11 @@ smashandclash watch <game-id>                          # live; --wait --json for
 smashandclash live                                     # public games (--finished)
 smashandclash replay <game-id | replay link>
 smashandclash review <game-id | replay link>
-smashandclash cards
+smashandclash cards                                    # --json: art, colours, attack animation
+smashandclash assets                                   # the kit: fonts, colours, sounds, voices
+smashandclash player <id>                              # a public profile and the clubs they rank in
+smashandclash club ABC234                              # a club's leaderboard
+smashandclash leaderboard discord:123456789            # any board (--limit, --offset)
 smashandclash duels --json
 smashandclash challenge claude --challenger Ada        # Hosted Agent Challenge
 smashandclash result <token> --wait

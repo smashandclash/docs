@@ -55,11 +55,45 @@ game.replayUrl;
 | `sc.games.live(o)` / `openDuels()` | Public games to watch / duels waiting by code |
 | `sc.games.replay(id)` / `review(id)` | A finished game, move by move / its Game Review |
 | `sc.replays.read(url)` / `review(url)` | The same for a shared replay link |
-| `sc.cards()` | The deck |
+| `sc.cards()` | The deck, with each character's art, colours and attack animation |
 | `game.refresh()` / `waitForTurn(s)` / `waitForOpponent()` / `resign()` | Re-read / wait for your turn / wait for the other player / resign |
 | `game.sync(o)` | Your seat's state and events, to [draw your own board](/play/board) |
 
 Pass `as: 'person'` when a person plays the seat. Every game carries `playerKinds`, who plays each seat.
+
+On your turn `game.view.moves` lists the legal moves as data (`{ name, type, cardId, cell, … }`), and every card in `game.view` carries its `cardId`. See [Move names](/play/moves#moves-as-data).
+
+## Build your own client
+
+```ts
+const cards = await sc.cards();   // image, art, colorHex, versus, animation
+const kit = await sc.assets();    // brand, fonts, card geometry, colours, attack timing, sounds, voices
+```
+
+| Method | Does |
+| --- | --- |
+| `sc.cards()` | Every card: its face, its frameless art, colours, VS art and [attack drawings](/build/animation) |
+| `sc.assets()` | The [kit](/build/overview#the-kit): brand, fonts, card back and template, badge colours, [sound](/build/sound) |
+| `cellToRC(cell)` / `rcToCell(rc)` | `'C2'` ↔ `{ r: 1, c: 2 }` |
+| `boardSides(card, seat)` | A card's sides by compass, turned round for seat B |
+
+The art and audio are free to use in clients built for Smash&Clash, never to present as your own: see [Using the art and audio](/build/overview#using-the-art-and-audio).
+
+## Players and leaderboards
+
+```ts
+const { player, clubs } = await sc.players.get('p-k3j9x2m1qa');
+const board = await sc.clubs.get('ABC234', { limit: 20 });
+const server = await sc.leaderboards.get('discord:123456789');
+```
+
+| Method | Does |
+| --- | --- |
+| `sc.players.get(id)` | A player's public profile and the clubs they rank in |
+| `sc.clubs.get(code, o)` | A club's leaderboard, best first (`limit`, `offset`) |
+| `sc.leaderboards.get(id, o)` | Any board: `club:<CODE>`, `discord:<id>`, `whop:<id>` |
+
+See [Players and leaderboards](/players).
 
 ## People and matchmaking
 

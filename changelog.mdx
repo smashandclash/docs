@@ -3,6 +3,16 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="SDK and CLI 0.3.0: build your own client">
+  - **Card art and animation.** [`/games/cards`](/reference/cards) now gives each character its frameless art, its colour as hex, its VS poses and its attack drawings, with the pivot and scale to draw them. See [Cards and art](/build/art) and [Attack animation](/build/animation).
+  - **The kit.** `/games/assets` (`sc.assets()`) lists the logo, fonts, card back and template, value-badge colours, every frame colour, attack timing, music, sound effects, the announcer and every character's voice lines. See [Build your own client](/build/overview) and [Sound](/build/sound).
+  - **Players and leaderboards.** Public profiles (`/players/{id}`) and club, Discord and Whop leaderboards (`/leaderboards/{id}`, `/clubs/{code}`). See [Players and leaderboards](/players).
+  - **The game view, for clients.** Every card in a view carries its `cardId`, and on your turn `view.moves` lists the legal moves as data. MCP tools leave it out.
+  - **Both Lizzies play.** Cards #5 and #44 share the name Lizzie; their moves now carry the id (`Lizzie#44@C2`). Before, only one of them could be played by name. A bare `Lizzie@C2` still works when only one is in hand.
+  - `@smashandclash/sdk` and `smashandclash` **0.3.0**: `sc.assets()`, `sc.players.get()`, `sc.clubs.get()`, `sc.leaderboards.get()`, `cellToRC`, `rcToCell`, `boardSides`; CLI `assets`, `player`, `club`, `leaderboard`.
+  - **Using the art.** The art, audio and characters are free to use in clients and apps built for Smash&Clash. They stay Smash&Clash's: never present them as your own.
+</Update>
+
 <Update label="October 2026" description="Examples: retro consoles">
   - **New example: [Smash&Clash on Delta, DS and GBA](https://github.com/smashandclash/delta).** A Nintendo DS game that plays online in Delta, melonDS and on real hardware, with a one-screen Delta skin, and a Game Boy Advance game that plays through the SDK over a bridge in mGBA. See [Examples](/sdk#examples).
   - **New example: [Smash&Clash on the PSP](https://github.com/smashandclash/ppsspp).** The whole game in PPSSPP or on a PSP, drawn in 3D by the PSP's GPU. Play by code works between the PSP, the DS, the GBA and `npx smashandclash duel join`.

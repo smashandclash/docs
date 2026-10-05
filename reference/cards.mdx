@@ -21,7 +21,20 @@ description: "The deck: 46 characters and 5 effect cards, one copy each."
 ```json
 {
   "cards": [
-    { "id": 1, "name": "Pengu", "kind": "character", "top": 5, "right": 4, "bottom": 3, "left": 2, "color": "pink", "image": "https://www.smashandclash.in/Cards-webp/01_Pengu.webp" },
+    {
+      "id": 1, "name": "Pengu", "kind": "character",
+      "top": 5, "right": 4, "bottom": 3, "left": 2,
+      "color": "pink", "colorHex": "#fc41a3",
+      "image": "https://www.smashandclash.in/Cards-webp/01_Pengu.webp",
+      "art": "https://www.smashandclash.in/Characters-webp/01_Pengu.webp",
+      "versus": { "right": "https://www.smashandclash.in/vs/1.webp", "left": "https://www.smashandclash.in/vs/left/1.webp" },
+      "animation": {
+        "windup": "https://www.smashandclash.in/attack/1/windup.webp",
+        "strike": "https://www.smashandclash.in/attack/1/strike.webp",
+        "pivot": { "x": 0.442, "y": 0.9213 },
+        "artScale": 1.0074
+      }
+    },
     { "id": 101, "name": "Boulder!", "kind": "effect", "effect": "BOULDER", "does": "Remove a non-frozen card plus every non-frozen card in its row and column.", "image": "https://www.smashandclash.in/Cards-webp/Effect_Boulder.webp" }
   ]
 }
@@ -31,8 +44,15 @@ description: "The deck: 46 characters and 5 effect cards, one copy each."
 | --- | --- |
 | `id` | The card id, as used in the [seat sync](/play/board): 1–46 for characters, 101–105 for effects |
 | `top` `right` `bottom` `left` | A character's side values as printed, read from its owner's side |
-| `color` | A character's frame colour. [Power tiles](/rules) boost cards of their colour |
+| `color` / `colorHex` | A character's frame colour, by name and as hex. [Power tiles](/rules) boost cards of their colour |
 | `effect` | An effect's keyword, as its moves are named: `BOULDER(D2)`, `FLIP`, `FREEZE(B1)`, `RECRUIT(A3→B1)`, `SWAP` |
-| `image` | The card face |
+| `image` | The card face, values printed on it (563×768) |
+| `art` | A character alone, on transparency (800×800): [build your own card](/build/art) |
+| `versus` | A character's VS-screen poses, facing right and left |
+| `animation` | A character's [attack drawings](/build/animation), or `null` when it has none |
 
 The shared deck holds each card once. Each player holds 5, so a game deals 10 of the 51 at the start.
+
+Two cards share a name: Lizzie is #5 and #44. Their move names carry the id, `Lizzie#44@C2`.
+
+Over MCP, `get_cards` returns each card's facts and face only, without the art and animation fields.

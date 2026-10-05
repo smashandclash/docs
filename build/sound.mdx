@@ -1,0 +1,54 @@
+---
+title: "Sound"
+description: "The game's music, sound effects, announcer and every character's voice lines, and when the game plays them."
+---
+
+`kit.audio` lists every sound the game plays, as MP3 URLs. Where a key holds a list, the game picks one at random each time, so lines don't repeat.
+
+```ts
+const { audio } = await sc.assets();
+audio.music.battle;     // [url, url, …]
+audio.sfx.clashHit;     // a hit that captures
+audio.voices['1'];      // Pengu
+```
+
+## Character voices
+
+Every character has six kinds of line, keyed by card id in `audio.voices`:
+
+| Key | When the game plays it |
+| --- | --- |
+| `place` | The card is placed |
+| `capture` | The attacking card captured: `"1"` to `"4"` by how many cards fell (4 means 4 or more) |
+| `chain` | The same card attacks again in the same turn after a chess-tile hop: `"2"` for its second attack, `"3"`, `"4"` |
+| `blocked` | The card attacked and nothing flipped |
+| `hurt` | The card was just captured (the game waits about 300 ms after the flip) |
+| `win` | The winner's champion, as the result is revealed |
+
+One line at a time: a capture call-out wins over a hurt line, and a hurt line over a place line.
+
+## Music
+
+`audio.music` holds tracks for each state of the game:
+
+| Key | When |
+| --- | --- |
+| `menu` | On the menus |
+| `matchmaking` | Waiting for an opponent |
+| `battle` | During a match |
+| `victory` / `defeat` | The result |
+| `replay` | Watching a replay |
+
+## Sound effects and announcer
+
+`audio.sfx` holds every effect by name. For example:
+
+- `cardPick`, `cardPlace`, `shuffle` and `draw` for handling cards;
+- `clashHit`, `clashMiss`, `captureHit`, `captureCrit`, `blockThud` and `blockShield` for attacks;
+- `boulder`, `flip`, `freeze`, `recruit` and `swap` for effect cards;
+- `chessHop` and `powerBoost` for the Mutators tiles;
+- `matchStart`, `turnChime`, `countdown`, `win` and `lose` for the match.
+
+`audio.announcer` holds the announcer's calls: `matchStart`, `matchFound`, `firstBlood`, `comeback`, `finalTile`, `victory`, `defeat`, one per effect card (`fxBoulder`, …), and more.
+
+`audio.howTo` is the narration of the game's how-to-play, one clip per step.

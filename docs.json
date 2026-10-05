@@ -87,6 +87,16 @@
             ]
           },
           {
+            "group": "Build your own client",
+            "pages": [
+              "build/overview",
+              "build/art",
+              "build/animation",
+              "build/sound",
+              "players"
+            ]
+          },
+          {
             "group": "Reference",
             "pages": [
               "reference/fair-play",

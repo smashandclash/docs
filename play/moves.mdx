@@ -17,6 +17,23 @@ Every legal move has a name, and `view.legalMoves` lists them all on your turn. 
 | Flip | `FLIP` | Turn the board 180° |
 | Swap | `SWAP` | Exchange hands |
 
+Two different cards are both called Lizzie (#5 and #44), so their moves carry the card id: `Lizzie#5@C2`, `Lizzie#44!C2`. A bare `Lizzie@C2` still plays when only one Lizzie is in your hand.
+
+## Moves as data
+
+Over REST and the SDK, `view.moves` lists the same moves as data on your turn, for a client that highlights where a card can go:
+
+```json
+[
+  { "name": "Pengu@C2", "type": "place", "cardId": 1, "cell": "C2" },
+  { "name": "Teddy!C2", "type": "overrun", "cardId": 41, "cell": "C2" },
+  { "name": "hop→E3", "type": "hop", "dest": "E3" },
+  { "name": "RECRUIT(A3→B1)", "type": "effect", "cardId": 104, "effect": "RECRUIT", "target": "A3", "dest": "B1" }
+]
+```
+
+Play a move by its `name`. MCP tools leave `moves` out; agents play by name.
+
 ## Reading sides
 
 Hand cards list `top`, `right`, `bottom` and `left` as printed. Board tiles list `sides` in **board terms**: `north` faces row 3, `south` faces row 1. Seat A reads them directly; seat B sits across the board, so its cards are turned round:

@@ -46,8 +46,9 @@ For a runnable version, see `examples/node/draw-your-own-board.mjs` in [smashand
 }
 ```
 
-- `board[r][c]`: `r` 0–2 is rows 1–3, and `c` 0–4 is columns A–E.
-- Card ids name cards in [the card list](/reference/cards), which gives values, colours and images.
+- `board[r][c]`: `r` 0–2 is rows 1–3, and `c` 0–4 is columns A–E. The SDK's `cellToRC('C2')` and `rcToCell({ r, c })` convert.
+- Card ids name cards in [the card list](/reference/cards), which gives values, colours, art and animation. The game view (`game.view`) carries the same `cardId` on every hand and board card.
+- [Build your own client](/build/overview) covers drawing the cards, the attack animation and the sound.
 - A card's sides are read from its owner's side; see [move names](/play/moves#reading-sides).
 
 ## The moves

@@ -1,0 +1,93 @@
+---
+title: "Players and leaderboards"
+description: "Public player profiles, and club, Discord and Whop leaderboards."
+---
+
+Players publish a public profile from the game: their name, rating, record and favourite champion. When they're in a club, or play inside a Discord server or Whop community, they rank on that community's leaderboard. All of it is public and read-only.
+
+Ratings are what each player's game reports. Show them; don't build rewards on them.
+
+## A player
+
+A player's id is their friend code, shown on their Friends screen and in their profile link (`/player/<id>`).
+
+<CodeGroup>
+  ```bash REST
+  curl -s https://www.smashandclash.in/api/v1/players/p-k3j9x2m1qa
+  ```
+  ```ts SDK
+  const { player, clubs } = await sc.players.get('p-k3j9x2m1qa');
+  ```
+  ```bash CLI
+  npx smashandclash player p-k3j9x2m1qa
+  ```
+</CodeGroup>
+
+```json
+{
+  "player": {
+    "id": "p-k3j9x2m1qa",
+    "name": "Ada",
+    "rating": 1210,
+    "rank": "Veteran",
+    "provisional": false,
+    "games": 64,
+    "winRate": 0.58,
+    "favoriteChampion": { "id": 1, "name": "Pengu" },
+    "recentForm": "WWLDW",
+    "updatedAt": "2026-10-05T10:00:00Z",
+    "url": "https://www.smashandclash.in/player/p-k3j9x2m1qa"
+  },
+  "clubs": [
+    { "id": "club:ABC234", "kind": "club", "name": "Night Owls", "code": "ABC234", "place": 1, "rating": 1210, "wins": 6, "losses": 3, "draws": 1 }
+  ]
+}
+```
+
+- `rating` starts at 1000. `provisional` is true for a player's first 30 rated games.
+- `winRate` is from 0 to 1, over their games against the computer (`null` before any).
+- `recentForm` is their last results, newest last.
+- `clubs` are the clubs they rank in, with their place in each.
+
+A player who played as a guest and then signed in has a new id. Their old id answers with the account's profile, and `movedFrom` holds the id you asked for. A player who has never published a profile is a `404`.
+
+## A leaderboard
+
+A board belongs to a community:
+
+| Id | Community |
+| --- | --- |
+| `club:<CODE>` | A club, by its 6-character code |
+| `discord:<server id>` | A Discord server, for players in the Discord Activity |
+| `whop:<experience id>` | A Whop community |
+
+<CodeGroup>
+  ```bash REST
+  curl -s "https://www.smashandclash.in/api/v1/clubs/ABC234?limit=20"
+  curl -s https://www.smashandclash.in/api/v1/leaderboards/discord:123456789
+  ```
+  ```ts SDK
+  const board = await sc.clubs.get('ABC234', { limit: 20 });
+  const server = await sc.leaderboards.get('discord:123456789');
+  ```
+  ```bash CLI
+  npx smashandclash club ABC234
+  npx smashandclash leaderboard discord:123456789
+  ```
+</CodeGroup>
+
+```json
+{
+  "community": { "id": "club:ABC234", "kind": "club", "name": "Night Owls", "code": "ABC234", "url": "https://www.smashandclash.in/leaderboard/club:ABC234" },
+  "standings": [
+    { "place": 1, "playerId": "p-k3j9x2m1qa", "name": "Ada", "rating": 1210, "rank": "Veteran", "provisional": false, "games": 10, "wins": 6, "losses": 3, "draws": 1, "winRate": 0.6, "recentForm": "WLW", "favoriteChampion": { "id": 2, "name": "Luna" } }
+  ],
+  "next": { "offset": 20 }
+}
+```
+
+Standings run best first, by rating. `limit` is 1 to 100 (default 50). When there are more rows, `next.offset` is the offset for the next page.
+
+A board's `winRate` covers all of a player's counted games, online included. A player's `winRate` covers only their games against the computer.
+
+Answers are cached for up to 30 seconds.
