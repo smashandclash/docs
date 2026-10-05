@@ -5,6 +5,10 @@ description: "smashandclash.design: the official look of Smash&Clash as a .desig
 
 Smash&Clash's look - tilted candy buttons with a hard lip on a bright blue world, sticker titles, one sun-yellow action per screen - is published as a [`.design`](https://github.com/AgentsORG/DESIGN) file: a design contract written for coding agents. Put it in your project, and your agent builds a client that feels like Smash&Clash.
 
+<Frame caption="The look the file describes: the game's lobby on smashandclash.in.">
+  <img src="/images/game/lobby.webp" alt="The Smash&Clash lobby: the logo, Luna on the board, candy buttons for How to play, Replays and More, Play a friend, 2 players local, the Mutators and Classic switch, and the sun-yellow Play button" />
+</Frame>
+
 <CardGroup cols={2}>
   <Card title="smashandclash.design" icon="palette" href="https://www.smashandclash.in/smashandclash.design">
     Colours, type, shapes, motion, sound, components, voice and the rules - design.v1.
@@ -52,6 +56,11 @@ The file pairs with the [card art, animation and sound](/build/overview) from th
 ## Your own flavour
 
 The default is Smash&Clash. To give your client its own look, don't edit the file - extend it. Create your own file next to it and override only what you want to change:
+
+<Frame>
+  <img className="block dark:hidden" src="/images/diagrams/design-flavour-light.webp" alt="smashandclash.design holds the world, candies, display face, radii and the locked rules; midnight.design extends it and changes the world, display face and radii; your client uses midnight's changes with everything else from smashandclash.design, and the locked rules stay as they are" />
+  <img className="hidden dark:block" src="/images/diagrams/design-flavour-dark.webp" alt="smashandclash.design holds the world, candies, display face, radii and the locked rules; midnight.design extends it and changes the world, display face and radii; your client uses midnight's changes with everything else from smashandclash.design, and the locked rules stay as they are" />
+</Frame>
 
 ```yaml midnight.design
 schema: design.v1

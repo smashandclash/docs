@@ -5,6 +5,14 @@ description: "Everything the official game draws and plays, as data: card art, c
 
 Smash&Clash runs on the server. A client draws it, sounds like it, and sends moves. The SDK and the API give you every piece the official game uses:
 
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: '12px', alignItems: 'end', margin: '16px 0' }}>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/Cards-webp/01_Pengu.webp" alt="Pengu's card face" noZoom /><figcaption style={{ fontSize: '12px' }}><code>image</code></figcaption></figure>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/Characters-webp/01_Pengu.webp" alt="Pengu's art" noZoom /><figcaption style={{ fontSize: '12px' }}><code>art</code></figcaption></figure>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/attack/1/windup.webp" alt="Pengu winding up" noZoom /><figcaption style={{ fontSize: '12px' }}><code>animation.windup</code></figcaption></figure>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/attack/1/strike.webp" alt="Pengu striking" noZoom /><figcaption style={{ fontSize: '12px' }}><code>animation.strike</code></figcaption></figure>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/vs/1.webp" alt="Pengu's VS pose" noZoom /><figcaption style={{ fontSize: '12px' }}><code>versus.right</code></figcaption></figure>
+</div>
+
 <CardGroup cols={2}>
   <Card title="Cards and art" icon="image" href="/build/art">
     The finished card face, the frameless character art, frame colours, value-badge colours, the card back and template, VS art.

@@ -3,10 +3,19 @@ title: "The rules"
 description: "Two players, a 3×5 board, one card a turn - and every move matters."
 ---
 
+<Frame caption="A Mutators game from seat B's side: a chess tile on B3, a +1 power tile on A2 and a frozen card on D1.">
+  <img src="/images/game/match.webp" alt="A Smash&Clash game in progress, seen from seat B" />
+</Frame>
+
 ## The board and the cards
 
 - Two players share a **3×5 board**: 15 tiles, columns **A–E** and rows **1–3**. Row 1 is nearest player A.
 - Each player holds **5 cards** from one shared 51-card deck: 46 characters and 5 effect cards. Each turn you play exactly **one** card, then draw back to 5.
+
+<Frame>
+  <img className="block dark:hidden" src="/images/diagrams/rules-board-light.webp" alt="The 3 by 5 board: columns A to E, rows 1 to 3, seat A beside row 1, seat B beside row 3; B2, C2 and D2 are the overrun zones" />
+  <img className="hidden dark:block" src="/images/diagrams/rules-board-dark.webp" alt="The 3 by 5 board: columns A to E, rows 1 to 3, seat A beside row 1, seat B beside row 3; B2, C2 and D2 are the overrun zones" />
+</Frame>
 
 ## Characters and captures
 
@@ -15,6 +24,11 @@ A character has four **side values**, 1–7: top, right, bottom and left, read f
 1. Place it on any empty tile.
 2. It attacks each orthogonal neighbour that faces the opponent and isn't frozen.
 3. If your side touching that card is **greater than or equal to** its side touching you, the card flips to you. Ties go to the attacker.
+
+<Frame caption="You place Pengu (5/4/3/2) on C2. It ties Mr. Lollihops and beats Noodle, so both flip to you; Ronald's 6 holds. Luna is already yours, so Pengu doesn't attack her.">
+  <img className="block dark:hidden" src="/images/diagrams/rules-capture-light.webp" alt="Pengu placed on C2 attacks three enemy neighbours: 5 against 5 on C3 flips, 3 against 1 on C1 flips, 4 against 6 on D2 holds" />
+  <img className="hidden dark:block" src="/images/diagrams/rules-capture-dark.webp" alt="Pengu placed on C2 attacks three enemy neighbours: 5 against 5 on C3 flips, 3 against 1 on C1 flips, 4 against 6 on D2 holds" />
+</Frame>
 
 Captures happen only when a card is placed. There are no chains.
 
@@ -25,6 +39,14 @@ A card belongs to the player it faces, so **the board is the score**. The game e
 ## Effect cards
 
 There's one copy of each, and each can only be played when it can do something.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: '12px', margin: '16px 0' }}>
+  <img src="https://www.smashandclash.in/Cards-webp/Effect_Boulder.webp" alt="The BOULDER card" noZoom />
+  <img src="https://www.smashandclash.in/Cards-webp/Effect_Flip.webp" alt="The FLIP card" noZoom />
+  <img src="https://www.smashandclash.in/Cards-webp/Effect_Freeze.webp" alt="The FREEZE card" noZoom />
+  <img src="https://www.smashandclash.in/Cards-webp/Effect_Recruit.webp" alt="The RECRUIT card" noZoom />
+  <img src="https://www.smashandclash.in/Cards-webp/Effect_Swap.webp" alt="The SWAP card" noZoom />
+</div>
 
 | Effect | What it does | Move name |
 | --- | --- | --- |
@@ -37,6 +59,11 @@ There's one copy of each, and each can only be played when it can do something.
 ## Mutators
 
 Mutators is the default ruleset; `classic` turns them off.
+
+<Frame>
+  <img className="block dark:hidden" src="/images/diagrams/rules-mutators-light.webp" alt="Chess tile: a card placed on a knight tile at B1 hops to D2 and attacks again. Power tile: purple Vega on a purple +1 tile has every side boosted to 8/5/6/7. Overrun zone: your card on C2, surrounded on four sides, is played over by Pengu" />
+  <img className="hidden dark:block" src="/images/diagrams/rules-mutators-dark.webp" alt="Chess tile: a card placed on a knight tile at B1 hops to D2 and attacks again. Power tile: purple Vega on a purple +1 tile has every side boosted to 8/5/6/7. Overrun zone: your card on C2, surrounded on four sides, is played over by Pengu" />
+</Frame>
 
 - **Chess tiles.** There are two per game: knight, bishop, rook or queen. Place a card on one and you may **hop** it like that piece to an empty tile, where it attacks again (`hop→E3`, or `hop: stay`).
 - **Power tiles.** Two new ones appear each turn, each with a colour and +1 or +2. A card of that colour standing on one attacks with every side boosted.

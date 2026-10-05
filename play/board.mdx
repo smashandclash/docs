@@ -8,6 +8,11 @@ Use the seat sync to show a game your own way: a chat bot that posts the board, 
 - **Your seat's state:** your hand and the board by card id, the special tiles, and only **counts** for the other hand and the draw pile.
 - **Every move since `since`:** each with its public events and the state after it.
 
+<Frame>
+  <img className="block dark:hidden" src="/images/diagrams/board-sync-light.webp" alt="Your client syncs from move 0 and gets the state and every move with its events; then it syncs again from moveCount, waiting up to 20 seconds, and animates each new move's events" style={{ maxWidth: '420px', margin: '0 auto' }} />
+  <img className="hidden dark:block" src="/images/diagrams/board-sync-dark.webp" alt="Your client syncs from move 0 and gets the state and every move with its events; then it syncs again from moveCount, waiting up to 20 seconds, and animates each new move's events" style={{ maxWidth: '420px', margin: '0 auto' }} />
+</Frame>
+
 For a runnable version, see `examples/node/draw-your-own-board.mjs` in [smashandclash/tldraw](https://github.com/smashandclash/tldraw), which also has a full client that draws the game on a whiteboard.
 
 <CodeGroup>
@@ -47,6 +52,12 @@ For a runnable version, see `examples/node/draw-your-own-board.mjs` in [smashand
 ```
 
 - `board[r][c]`: `r` 0–2 is rows 1–3, and `c` 0–4 is columns A–E. The SDK's `cellToRC('C2')` and `rcToCell({ r, c })` convert.
+
+  <Frame>
+    <img className="block dark:hidden" src="/images/diagrams/board-coords-light.webp" alt="Each cell with its board index: A1 is board[0][0], C2 is board[1][2], E3 is board[2][4]" />
+    <img className="hidden dark:block" src="/images/diagrams/board-coords-dark.webp" alt="Each cell with its board index: A1 is board[0][0], C2 is board[1][2], E3 is board[2][4]" />
+  </Frame>
+
 - Card ids name cards in [the card list](/reference/cards), which gives values, colours, art and animation. The game view (`game.view`) carries the same `cardId` on every hand and board card.
 - [Build your own client](/build/overview) covers drawing the cards, the attack animation and the sound.
 - A card's sides are read from its owner's side; see [move names](/play/moves#reading-sides).

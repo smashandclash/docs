@@ -13,6 +13,12 @@ When a card attacks, its character winds up and strikes. The game shows three dr
 
 The wind-up and strike drawings are 1088×1088, on transparency, facing right.
 
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '16px', alignItems: 'end', margin: '16px 0' }}>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/Characters-webp/01_Pengu.webp" alt="Pengu at rest" /><figcaption style={{ fontSize: '12px' }}>rest: <code>art</code></figcaption></figure>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/attack/1/windup.webp" alt="Pengu winding up" /><figcaption style={{ fontSize: '12px' }}><code>animation.windup</code></figcaption></figure>
+  <figure style={{ margin: 0, textAlign: 'center' }}><img src="https://www.smashandclash.in/attack/1/strike.webp" alt="Pengu striking" /><figcaption style={{ fontSize: '12px' }}><code>animation.strike</code></figcaption></figure>
+</div>
+
 ```ts
 const pengu = (await sc.cards()).find((c) => c.id === 1)!;
 pengu.animation;
@@ -29,6 +35,11 @@ The drawings share the art's space, measured from 0 to 1 across and down.
 1. Find the **pivot**: `animation.pivot` is where the character meets the ground.
 2. Draw the frame **scaled by `artScale`** relative to the art, with its pivot on the art's pivot.
 3. To **face left**, mirror the frame horizontally about the pivot.
+
+<Frame>
+  <img className="block dark:hidden" src="/images/diagrams/animation-pivot-light.webp" alt="Pengu's art with its pivot marked where it meets the ground; the wind-up drawing scaled by artScale with its pivot on the same point; the same drawing mirrored about the pivot to face left" />
+  <img className="hidden dark:block" src="/images/diagrams/animation-pivot-dark.webp" alt="Pengu's art with its pivot marked where it meets the ground; the wind-up drawing scaled by artScale with its pivot on the same point; the same drawing mirrored about the pivot to face left" />
+</Frame>
 
 ```ts
 // on a canvas the size of the card art (w × h)
@@ -51,6 +62,11 @@ An attack is one of three kinds:
 - **blocked**: it captures nothing. It never reaches the strike drawing; being stopped short is the point.
 
 `kit.animation.timing` says which drawing shows over the attack's progress, from 0 to 1:
+
+<Frame>
+  <img className="block dark:hidden" src="/images/diagrams/animation-timing-light.webp" alt="Three bars from 0 to 1. Strike: rest to 0.15, wind-up to 0.34, strike to 0.62, then rest. Stomp: rest to 0.17, wind-up to 0.5, strike to 0.72, then rest. Blocked: rest to 0.15, wind-up to 0.46, then rest" />
+  <img className="hidden dark:block" src="/images/diagrams/animation-timing-dark.webp" alt="Three bars from 0 to 1. Strike: rest to 0.15, wind-up to 0.34, strike to 0.62, then rest. Stomp: rest to 0.17, wind-up to 0.5, strike to 0.72, then rest. Blocked: rest to 0.15, wind-up to 0.46, then rest" />
+</Frame>
 
 | Kind | rest | wind-up | strike | rest |
 | --- | --- | --- | --- | --- |
