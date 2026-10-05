@@ -93,6 +93,7 @@
               "build/art",
               "build/animation",
               "build/sound",
+              "build/design",
               "players"
             ]
           },

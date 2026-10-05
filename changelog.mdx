@@ -3,6 +3,12 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="Design system: smashandclash.design">
+  - **[`smashandclash.design`](/build/design)**: Smash&Clash's look as a [.design](https://github.com/AgentsORG/DESIGN) file, so agents build clients that feel like Smash&Clash. Colours, type, shapes, motion, sound, components, voice and rules; the game's high-contrast mode as a theme. The same tokens ship as CSS variables: [`smashandclash.tokens.css`](https://www.smashandclash.in/smashandclash.tokens.css).
+  - **Your own flavour.** Extend the file and override what `policy.flavor` allows: the world, candies, faces, corners, tilt, motion. Card colours, you / them colours and the access rules stay.
+  - We recommend the [design-engineering](https://github.com/AgentsORG/design-engineering) skill for any client: `npx skills add AgentsORG/design-engineering`.
+</Update>
+
 <Update label="October 2026" description="Agent Plugin 2.2">
   - **New skill: `smash-and-clash-client`.** It teaches an agent to [build a Smash&Clash client](/build/overview): draw the cards from the official art, animate attacks, play the game's sounds and voices, and show profiles and leaderboards. `npx skills add smashandclash/plugin` picks it up.
   - The SDK, CLI, play and WebMCP skills know 0.3.0: the asset kit, profiles and leaderboards, card ids, moves as data, and the two Lizzies' move names.
