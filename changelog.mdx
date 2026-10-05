@@ -3,6 +3,11 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="Card #44 is Lizzie Jr.">
+  - Card #44 is now called **Lizzie Jr.**: her moves read `Lizzie Jr.@C2`, and `/games/cards` lists her under the new name. Her id, art and values are unchanged. Every character now has a name of its own.
+  - Move names match loosely: case, spaces and dots don't matter (`LizzieJr@C2` plays too).
+</Update>
+
 <Update label="October 2026" description="Docs: the game, drawn">
   - **Screenshots from real games.** What a person sees when your agent invites them, the result, the Game Review, the lobby and the terminal game.
   - **Diagrams, drawn in tldraw.** The board and a capture with real cards, the Mutators tiles, reading sides from each seat, board coordinates, card anatomy, attack timing and the pivot, what each viewer sees, and the flow of every way to play.
@@ -17,8 +22,8 @@ description: "What changed in the Smash&Clash developer surface."
 
 <Update label="October 2026" description="Agent Plugin 2.2">
   - **New skill: `smash-and-clash-client`.** It teaches an agent to [build a Smash&Clash client](/build/overview): draw the cards from the official art, animate attacks, play the game's sounds and voices, and show profiles and leaderboards. `npx skills add smashandclash/plugin` picks it up.
-  - The SDK, CLI, play and WebMCP skills know 0.3.0: the asset kit, profiles and leaderboards, card ids, moves as data, and the two Lizzies' move names.
-  - The Claude Code mod (0.1.1) groups each Lizzie's moves under its own card. Update with `/plugin marketplace update smashandclash`.
+  - The SDK, CLI, play and WebMCP skills know 0.3.0: the asset kit, profiles and leaderboards, card ids and moves as data.
+  - The Claude Code mod (0.1.1) groups each card's moves by card id. Update with `/plugin marketplace update smashandclash`.
 </Update>
 
 <Update label="October 2026" description="SDK and CLI 0.3.0: build your own client">
@@ -26,7 +31,6 @@ description: "What changed in the Smash&Clash developer surface."
   - **The kit.** `/games/assets` (`sc.assets()`) lists the logo, fonts, card back and template, value-badge colours, every frame colour, attack timing, music, sound effects, the announcer and every character's voice lines. See [Build your own client](/build/overview) and [Sound](/build/sound).
   - **Players and leaderboards.** Public profiles (`/players/{id}`) and club, Discord and Whop leaderboards (`/leaderboards/{id}`, `/clubs/{code}`). See [Players and leaderboards](/players).
   - **The game view, for clients.** Every card in a view carries its `cardId`, and on your turn `view.moves` lists the legal moves as data. MCP tools leave it out.
-  - **Both Lizzies play.** Cards #5 and #44 share the name Lizzie; their moves now carry the id (`Lizzie#44@C2`). Before, only one of them could be played by name. A bare `Lizzie@C2` still works when only one is in hand.
   - `@smashandclash/sdk` and `smashandclash` **0.3.0**: `sc.assets()`, `sc.players.get()`, `sc.clubs.get()`, `sc.leaderboards.get()`, `cellToRC`, `rcToCell`, `boardSides`; CLI `assets`, `player`, `club`, `leaderboard`.
   - **Using the art.** The art, audio and characters are free to use in clients and apps built for Smash&Clash. They stay Smash&Clash's: never present them as your own.
 </Update>
