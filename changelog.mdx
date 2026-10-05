@@ -3,6 +3,12 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="Agent Plugin 2.2">
+  - **New skill: `smash-and-clash-client`.** It teaches an agent to [build a Smash&Clash client](/build/overview): draw the cards from the official art, animate attacks, play the game's sounds and voices, and show profiles and leaderboards. `npx skills add smashandclash/plugin` picks it up.
+  - The SDK, CLI, play and WebMCP skills know 0.3.0: the asset kit, profiles and leaderboards, card ids, moves as data, and the two Lizzies' move names.
+  - The Claude Code mod (0.1.1) groups each Lizzie's moves under its own card. Update with `/plugin marketplace update smashandclash`.
+</Update>
+
 <Update label="October 2026" description="SDK and CLI 0.3.0: build your own client">
   - **Card art and animation.** [`/games/cards`](/reference/cards) now gives each character its frameless art, its colour as hex, its VS poses and its attack drawings, with the pivot and scale to draw them. See [Cards and art](/build/art) and [Attack animation](/build/animation).
   - **The kit.** `/games/assets` (`sc.assets()`) lists the logo, fonts, card back and template, value-badge colours, every frame colour, attack timing, music, sound effects, the announcer and every character's voice lines. See [Build your own client](/build/overview) and [Sound](/build/sound).

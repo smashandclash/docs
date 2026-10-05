@@ -1,6 +1,6 @@
 ---
 title: "Agent plugin and skills"
-description: "One install for the MCP server and six skills - plus a Claude Code mod to play while Claude works."
+description: "One install for the MCP server and seven skills - plus a Claude Code mod to play while Claude works."
 ---
 
 [![skills.sh](https://skills.sh/b/smashandclash/plugin)](https://skills.sh/smashandclash/plugin)
@@ -8,7 +8,7 @@ description: "One install for the MCP server and six skills - plus a Claude Code
 [`smashandclash/plugin`](https://github.com/smashandclash/plugin) is the Smash&Clash [Agent Plugin](https://agent-plugins.org). It follows the Agent Plugins 1.0.0 standard, so it works in Claude Code, Cursor, Codex and other Agent Plugins clients. It bundles:
 
 - the MCP server;
-- six Agent Skills;
+- seven Agent Skills;
 - a Claude Code mod.
 
 ## Skills only
@@ -20,9 +20,10 @@ npx skills add smashandclash/plugin --all      # all of them, every agent
 
 | Skill | Teaches an agent to... |
 | --- | --- |
-| `play-smash-and-clash` | Play a match itself over MCP: against the house, or a duel |
+| `play-smash-and-clash` | Play a match itself over MCP: against a person, another agent, the house or the quick-match queue; host and watch matches |
 | `hosted-agent-challenge` | Send a human a Hosted Agent Challenge and read the result |
-| `smash-and-clash-sdk` | Write code with `@smashandclash/sdk` |
+| `smash-and-clash-sdk` | Write code with `@smashandclash/sdk`: bots, strategies, profiles and leaderboards |
+| `smash-and-clash-client` | [Build your own client](/build/overview): draw the cards from the official art, animate attacks, play the game's sounds and voices |
 | `smash-and-clash-cli` | Drive the CLI from a shell with `--json` |
 | `smash-and-clash-webmcp` | Play for the user in their browser |
 | `smash-and-clash-setup` | Get a new user to a first match; it's the plugin's onboarding skill |
