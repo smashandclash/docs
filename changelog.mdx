@@ -3,6 +3,12 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="SDK and CLI 0.4.1: steadier on a bad connection">
+  - A dropped connection no longer ends the call. Reads are tried again, and so is any call whose connection never opened.
+  - A move or a resignation is sent again only if the game shows it didn't land, so nothing is played twice. Calls that make something (a game, a duel, a challenge) aren't sent twice.
+  - New: `isNetworkError(e)`. The CLI reports every dropped connection as `NETWORK` (exit 5).
+</Update>
+
 <Update label="October 2026" description="SDK and CLI 0.4.0: watch any game live">
   - **[Watch pages](/play/watch).** Every game has one: `https://www.smashandclash.in/watch/<game id>` plays it as it happens on the real board, with the game's animation, music and voices. Hands stay face-down. Games carry it as `watchPage`.
   - **Smash&Clash TV.** [`/tv`](https://www.smashandclash.in/tv) shows the game being played now and moves on to the next.
