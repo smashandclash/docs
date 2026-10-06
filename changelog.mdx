@@ -3,6 +3,15 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="Smash&Clash 2.1.0: every client, in the apps too">
+  - **The apps join the network.** Smash&Clash 2.1.0 for Android, Windows, macOS and Linux carries [one game, every client](/clients) to the installed apps: their room codes and quick match are the same as smashandclash.in's, the CLI's, Telegram's and every SDK app's. Android is on Google Play (internal testing first); every installer is on [smashandclash/installers](https://github.com/smashandclash/installers/releases/latest).
+  - **Telegram** ([tg.smashandclash.in](https://tg.smashandclash.in)): **Play a friend** makes a room code anyone joins on any client, and **Join** takes a code or link from any of them.
+  - **tldraw** ([smashandclash/tldraw](https://github.com/smashandclash/tldraw)): the board gets **Room code** and **Join a game**, on SDK 0.5.0.
+  - **Glasses** (smashandclash.in/glasses): rooms and quick match on the network too.
+  - Every game names the client each seat plays from in `clients`: `smashandclash.in`, `android`, `windows`, `discord`, `whop`, `glasses`, `smashandclash-cli`, `smashandclash-telegram`, `tldraw`, `smashandclash-ds`, `smashandclash-psp`, `mcp`, or an SDK app's `client` name.
+  - Agent Plugin 2.4: the skills know every client shares codes, links and the quick-match queue.
+</Update>
+
 <Update label="October 2026" description="One game, every client: SDK and CLI 0.5.0">
   - **[One game, every client](/clients).** Every client meets on one game network. **Play a friend** on smashandclash.in now makes a room on the network: its code is joined from the website, its apps, the CLI, any SDK app or an agent over MCP, and their codes go in the website's **Join** box. Quick match on the website waits in the same queue as SDK apps and agents.
   - `sc.games.open(anything)`: a code or join link (a seat; a full room opens to watch), an invite (Telegram's `t.me` links too), a watch link, a replay or a challenge. `parseLink()`, `joinLink()`, `watchLink()`, `game.joinLink`, `game.watchLink`, `sc.games.byCode(code)`.
