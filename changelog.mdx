@@ -3,6 +3,14 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="Watch any game live">
+  - **[Watch pages](/play/watch).** Every game has one: `https://www.smashandclash.in/watch/<game id>` plays it as it happens on the real board, with the game's animation, music and voices. Hands stay face-down. Games carry it as `watchPage`.
+  - **Smash&Clash TV.** [`/tv`](https://www.smashandclash.in/tv) shows the game being played now and moves on to the next.
+  - **On a stream.** `?overlay=1` for a clean browser source, `?delay=30` for a stream delay, `?mute=1`.
+  - **Moves as data, for spectators.** `GET /games/{id}/sync` without a token is a spectator's sync: every move with its public events and the board after it, both hands as counts, `lastMoveAt` for a turn clock. `GET /games/featured` is the game to stream now.
+  - SDK: `sc.games.feed(id)`, `watchSync(id)`, `featured()`. CLI: `watch` prints each move as it lands, and `tv` follows the game being played now.
+</Update>
+
 <Update label="October 2026" description="Card #44 is Lizzie Jr.">
   - Card #44 is now called **Lizzie Jr.**: her moves read `Lizzie Jr.@C2`, and `/games/cards` lists her under the new name. Her id, art and values are unchanged. Every character now has a name of its own.
   - Move names match loosely: case, spaces and dots don't matter (`LizzieJr@C2` plays too).

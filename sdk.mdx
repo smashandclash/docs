@@ -52,7 +52,9 @@ game.replayUrl;
 | `sc.games.claim(inviteUrl, o)` | Take the seat an invite opens |
 | `sc.games.resume(id, playerToken)` | Pick a game up again |
 | `sc.games.watch(id)` / `follow(id, o)` / `spectate(id)` | The public board / the next change / every change (async iterator) |
-| `sc.games.live(o)` / `openDuels()` | Public games to watch / duels waiting by code |
+| `sc.games.feed(id, o)` | Every move as it lands, with its public events and the board after it (async iterator): [watch games](/play/watch) |
+| `sc.games.watchSync(id, o)` | A spectator's sync: the table now and every move since `since`, hands as counts |
+| `sc.games.live(o)` / `featured()` / `openDuels()` | Public games to watch / the game to stream now / duels waiting by code |
 | `sc.games.replay(id)` / `review(id)` | A finished game, move by move / its Game Review |
 | `sc.replays.read(url)` / `review(url)` | The same for a shared replay link |
 | `sc.cards()` | The deck, with each character's art, colours and attack animation |
