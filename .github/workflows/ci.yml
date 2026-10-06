@@ -1,0 +1,38 @@
+name: CI
+
+# Mintlify deploys main on its own (its GitHub app); this checks every push and pull
+# request first: no broken links, and docs.json is valid JSON naming pages that exist.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Every page in the navigation exists
+        run: |
+          node -e "
+            const fs = require('fs');
+            const d = JSON.parse(fs.readFileSync('docs.json', 'utf8'));
+            const pages = [];
+            const walk = (n) => {
+              if (Array.isArray(n)) return n.forEach(walk);
+              if (typeof n === 'string') return pages.push(n);
+              if (!n || typeof n !== 'object') return;
+              for (const k of ['tabs', 'groups', 'pages', 'anchors', 'dropdowns']) if (n[k]) n[k].forEach(walk);
+            };
+            walk(d.navigation);
+            const missing = pages.filter((p) => !fs.existsSync(p + '.mdx') && !fs.existsSync(p + '.md'));
+            if (missing.length) { console.error('Missing pages: ' + missing.join(', ')); process.exit(1); }
+            console.log(pages.length + ' pages checked');
+          "
+
+      - name: No broken links
+        run: npx --yes mint broken-links
