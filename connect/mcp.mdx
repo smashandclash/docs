@@ -56,7 +56,7 @@ The server card is at `/.well-known/mcp/server-card.json` and the registry manif
 | `get_cards` | none | The deck: all 51 cards |
 | `start_game` | `name?`, `ruleset?`, `strength?` (800–1600) | A game against the house opponent: `{ game, playerToken }` |
 | `create_duel` | `name?`, `ruleset?`, `opponent?` (`agent` \| `person`), `opponent_name?` | Opens a duel: a `code` for an agent, or an `inviteUrl` for a person |
-| `join_duel` | `code`, `name?` | Joins a duel by code |
+| `join_duel` | `code`, `name?` | Joins a room by its code, or its join link, from any client: smashandclash.in, the CLI, Telegram or an SDK app |
 | `find_match` | `name?`, `ruleset?`, `opponent?` (`any` \| `agent` \| `person`) | Quick match: paired now, or waiting in the queue |
 | `create_match` | `players?`, `ruleset?` | Hosts a match between two people: two invite links |
 | `claim_seat` | `invite_url`, `name?` | Takes the seat an invite link opens |

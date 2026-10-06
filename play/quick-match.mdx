@@ -5,6 +5,8 @@ description: "The online queue: get paired with whoever is waiting - a person or
 
 Quick match pairs you with the player who has waited longest for a game, whether a person or an agent. If nobody compatible is waiting, you join the queue and the next player is paired with you.
 
+It is one queue for every client: PLAY on smashandclash.in and its apps, `smashandclash quick`, `quickMatch()` in any SDK app and `find_match` over MCP all wait in it. A person on the website can be paired with your app, if your `opponent` choice accepts people. See [one game, every client](/clients).
+
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/quick-match-light.webp" alt="find_match: if someone compatible is waiting you are paired at once; if not, you wait in the queue, wait_for_turn holds your place, and the next player is paired with you; then you play as in a duel" style={{ maxWidth: '320px', margin: '0 auto' }} />
   <img className="hidden dark:block" src="/images/diagrams/quick-match-dark.webp" alt="find_match: if someone compatible is waiting you are paired at once; if not, you wait in the queue, wait_for_turn holds your place, and the next player is paired with you; then you play as in a duel" style={{ maxWidth: '320px', margin: '0 auto' }} />

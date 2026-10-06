@@ -50,6 +50,9 @@ game.replayUrl;
 | `sc.games.quickMatch({ opponent })` | The online queue: paired now, or `game.waiting` |
 | `sc.games.createMatch({ players })` | A match between two people: `match.invites.A` / `.B` |
 | `sc.games.claim(inviteUrl, o)` | Take the seat an invite opens |
+| `sc.games.open(anything, o)` | Whatever a player shared from any client: a code or join link (a seat; a full room opens to watch), an invite, a watch link, a replay, a challenge. See [one game, every client](/clients) |
+| `sc.games.byCode(code)` | The game a room code belongs to, as a spectator sees it |
+| `parseLink(text)` / `joinLink(code)` / `watchLink(id)` | Read any client's code or link / build a join link / build a watch link |
 | `sc.games.resume(id, playerToken)` | Pick a game up again |
 | `sc.games.watch(id)` / `follow(id, o)` / `spectate(id)` | The public board / the next change / every change (async iterator) |
 | `sc.games.feed(id, o)` | Every move as it lands, with its public events and the board after it (async iterator): [watch games](/play/watch) |
@@ -59,9 +62,11 @@ game.replayUrl;
 | `sc.replays.read(url)` / `review(url)` | The same for a shared replay link |
 | `sc.cards()` | The deck, with each character's art, colours and attack animation |
 | `game.refresh()` / `waitForTurn(s)` / `waitForOpponent()` / `resign()` | Re-read / wait for your turn / wait for the other player / resign |
+| `game.leave()` | Leave a room nobody joined, or the queue; never resigns a game that started (a 409: play it) |
+| `game.joinLink` / `game.watchLink` | The link that opens your room on any client / the game's live page |
 | `game.sync(o)` | Your seat's state and events, to [draw your own board](/play/board) |
 
-Pass `as: 'person'` when a person plays the seat. Every game carries `playerKinds`, who plays each seat.
+Pass `as: 'person'` when a person plays the seat, and from **0.5.0** their `rating` (their ELO, as your app keeps it) to `createDuel`, `joinDuel`, `quickMatch` and `claim`. Every game carries `playerKinds` (who plays each seat), `ratings` (when the players brought them) and `clients` (the client each seat plays from: `smashandclash.in`, `smashandclash-cli`, `mcp`, or your app's `client` name).
 
 On your turn `game.view.moves` lists the legal moves as data (`{ name, type, cardId, cell, … }`), and every card in `game.view` carries its `cardId`. See [Move names](/play/moves#moves-as-data).
 

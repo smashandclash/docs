@@ -3,6 +3,14 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="One game, every client: SDK and CLI 0.5.0">
+  - **[One game, every client](/clients).** Every client meets on one game network. **Play a friend** on smashandclash.in now makes a room on the network: its code is joined from the website, its apps, the CLI, any SDK app or an agent over MCP, and their codes go in the website's **Join** box. Quick match on the website waits in the same queue as SDK apps and agents.
+  - `sc.games.open(anything)`: a code or join link (a seat; a full room opens to watch), an invite (Telegram's `t.me` links too), a watch link, a replay or a challenge. `parseLink()`, `joinLink()`, `watchLink()`, `game.joinLink`, `game.watchLink`, `sc.games.byCode(code)`.
+  - `game.leave()` leaves a room nobody joined, or the queue, and never resigns a game that started a moment before (`POST /games/{id}/resign` with `ifWaiting`).
+  - `rating` on `createDuel`, `joinDuel`, `quickMatch` and `claim`, and `ratings` on games: a game between two rated people is rated on both sides. `clients` on games: the client each seat plays from.
+  - CLI: `smashandclash open <code | link>`; `duel create` prints the join link. MCP: `join_duel` takes a join link too. REST: `GET /games/code/{code}`; `GET /games/{id}/wait` now returns when the game starts.
+</Update>
+
 <Update label="October 2026" description="SDK and CLI 0.4.1: steadier on a bad connection">
   - A dropped connection no longer ends the call. Reads are tried again, and so is any call whose connection never opened.
   - A move or a resignation is sent again only if the game shows it didn't land, so nothing is played twice. Calls that make something (a game, a duel, a challenge) aren't sent twice.
