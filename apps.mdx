@@ -1,0 +1,91 @@
+---
+title: "Install the apps"
+description: "Smash&Clash 2.1.0 for Windows, macOS, Linux and Android, and the web app for iPhone and iPad."
+---
+
+Smash&Clash plays free in any browser at [smashandclash.in](https://www.smashandclash.in). The apps are the same game, installed: they work offline against the house opponent, and online they play [every other client](/clients). A room code from the app is joined on the website, in Telegram, in a terminal or in any app built on the SDK, and theirs are joined in the app.
+
+## Download 2.1.0
+
+| Platform | Download | Notes |
+| --- | --- | --- |
+| **Windows 10/11** (64-bit) | [Smash-and-Clash-2.1.0-Windows-Setup.exe](https://github.com/smashandclash/installers/releases/download/v2.1.0/Smash-and-Clash-2.1.0-Windows-Setup.exe) | Per-user installer, no admin needed |
+| **macOS 11+** | [Smash-and-Clash-2.1.0-macOS-Universal.dmg](https://github.com/smashandclash/installers/releases/download/v2.1.0/Smash-and-Clash-2.1.0-macOS-Universal.dmg) | One app for Apple Silicon and Intel |
+| **Linux** (any distribution) | [Smash-and-Clash-2.1.0-Linux-x86_64.AppImage](https://github.com/smashandclash/installers/releases/download/v2.1.0/Smash-and-Clash-2.1.0-Linux-x86_64.AppImage) | Also [.deb](https://github.com/smashandclash/installers/releases/download/v2.1.0/Smash-and-Clash-2.1.0-Linux-amd64.deb) (Debian, Ubuntu) and [.rpm](https://github.com/smashandclash/installers/releases/download/v2.1.0/Smash-and-Clash-2.1.0-Linux-x86_64.rpm) (Fedora, openSUSE) |
+| **Android 7.0+** | [Smash-and-Clash-2.1.0-Android.apk](https://github.com/smashandclash/installers/releases/download/v2.1.0/Smash-and-Clash-2.1.0-Android.apk) | Sideload it; Google Play is in testing |
+| **iPhone and iPad** | No download | Add the web app to your Home Screen (below) |
+
+Every release, with its `SHA256SUMS.txt`, is on [smashandclash/installers](https://github.com/smashandclash/installers/releases/latest).
+
+## What's new in 2.1.0
+
+- **Every client plays every other.** **Play a friend** makes a room with a six-letter code that works everywhere: the apps, smashandclash.in, Telegram, the terminal (`npx smashandclash open CODE`) and any app built on the [SDK](/sdk). Codes made on any of them work in the apps.
+- **Quick match** pairs you with players on every client.
+- Games connect on any network, mobile data included, and the network checks every move.
+
+## Install
+
+<Tabs>
+  <Tab title="Windows">
+    1. Download `Smash-and-Clash-2.1.0-Windows-Setup.exe` and run it.
+    2. The installer isn't code-signed yet, so Windows SmartScreen may show **Windows protected your PC**. Choose **More info**, then **Run anyway**.
+    3. It installs for your user only (no admin prompt) and adds a Start-menu shortcut. The WebView2 runtime is installed if it's missing.
+  </Tab>
+  <Tab title="macOS">
+    1. Download `Smash-and-Clash-2.1.0-macOS-Universal.dmg`, open it, and drag **Smash&Clash** into **Applications**.
+    2. The app isn't notarized by Apple yet. The first time, right-click (or Control-click) the app, choose **Open**, then confirm **Open**. After that it opens normally.
+    3. If macOS says Smash&Clash can't be opened, go to **System Settings → Privacy & Security** and choose **Open Anyway**.
+  </Tab>
+  <Tab title="Linux">
+    ```bash
+    # AppImage: any distribution
+    chmod +x Smash-and-Clash-2.1.0-Linux-x86_64.AppImage
+    ./Smash-and-Clash-2.1.0-Linux-x86_64.AppImage
+
+    # Debian / Ubuntu
+    sudo apt install ./Smash-and-Clash-2.1.0-Linux-amd64.deb
+
+    # Fedora / RHEL / openSUSE
+    sudo dnf install ./Smash-and-Clash-2.1.0-Linux-x86_64.rpm
+    ```
+
+    The app uses the system WebKitGTK (webkit2gtk 4.1); the `.deb` and `.rpm` install it for you.
+  </Tab>
+  <Tab title="Android">
+    1. On your phone, download `Smash-and-Clash-2.1.0-Android.apk`.
+    2. When asked, allow installs from that source (**Settings → Install unknown apps**).
+    3. Open the downloaded file to install it, then launch **Smash&Clash**.
+
+    The Google Play listing is in testing; once it opens, the app updates from there.
+  </Tab>
+  <Tab title="iPhone and iPad">
+    Open [smashandclash.in](https://www.smashandclash.in) in **Safari**, tap **Share**, then **Add to Home Screen**. It runs full screen with its own icon, and plays offline once its offline pack has downloaded.
+  </Tab>
+</Tabs>
+
+## Check a download
+
+Compare the file's SHA-256 with the line for it in `SHA256SUMS.txt`:
+
+<CodeGroup>
+  ```bash macOS / Linux
+  shasum -a 256 Smash-and-Clash-2.1.0-*
+  ```
+
+  ```powershell Windows
+  Get-FileHash .\Smash-and-Clash-2.1.0-Windows-Setup.exe -Algorithm SHA256
+  ```
+</CodeGroup>
+
+## System requirements
+
+- **Windows:** Windows 10 or 11, 64-bit.
+- **macOS:** macOS 11 Big Sur or newer, Apple Silicon or Intel.
+- **Linux:** x86_64 with WebKitGTK 4.1 (Ubuntu 22.04+, Debian 12+, Fedora 38+ or equivalent).
+- **Android:** Android 7.0 or newer.
+- **iPhone and iPad:** iOS and iPadOS 16.4 or newer, in Safari.
+- A GPU with WebGL, which nearly every device has.
+
+<Note>
+  For developers: an app's seat names its platform in games, e.g. `clients: { A: 'android' }`, next to `smashandclash.in`, `smashandclash-cli`, `tldraw` and your own app's name. See [one game, every client](/clients).
+</Note>
