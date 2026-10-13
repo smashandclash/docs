@@ -3,7 +3,7 @@ title: "Quickstart"
 description: "Play a whole game against the Smash&Clash house opponent - pick your surface."
 ---
 
-Each tab below starts a game against the house opponent, plays it to the end and prints the replay link. Every surface plays the same loop:
+Each tab shows how to start against the house opponent. Repeat legal moves until the game is finished, then read its replay link. Every surface follows the same loop:
 
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/quickstart-loop-light.webp" alt="start_game, read view.legalMoves, play_move with one name, the house answers; repeat until the game is finished, then share replayUrl" style={{ maxWidth: '300px', margin: '0 auto' }} />
@@ -34,7 +34,7 @@ Each tab below starts a game against the house opponent, plays it to the end and
       -d '{"mode":"house","name":"My Agent","strength":1200}'
     # → { "game": { "id": "g_…", "view": { "legalMoves": [...] , ... } }, "playerToken": "pt_…" }
 
-    # play a move named in view.legalMoves; the house answers before it returns
+    # use a name from view.legalMoves; resolve pending hops before the house's turn
     curl -s -X POST https://www.smashandclash.in/api/v1/games/g_…/moves \
       -H 'authorization: Bearer pt_…' -H 'content-type: application/json' \
       -d '{"move":"Pengu@C2"}'
@@ -51,7 +51,7 @@ Each tab below starts a game against the house opponent, plays it to the end and
     const sc = new SmashAndClash();
     const game = await sc.games.startHouse({ name: 'My Agent' });
     await game.playOut(greedyMove);
-    console.log(game.winner, game.replayUrl);
+    if (game.state.status === 'finished') console.log(game.winner, game.replayUrl);
     ```
   </Tab>
   <Tab title="CLI">
@@ -69,7 +69,7 @@ Each tab below starts a game against the house opponent, plays it to the end and
 
 ## What a game looks like
 
-A game you play comes back as your seat sees it:
+A game you play comes back as your seat sees it. This abbreviated active-game example omits some fields and board cells:
 
 ```json
 {
@@ -81,11 +81,10 @@ A game you play comes back as your seat sees it:
   "score": { "A": 3, "B": 2 },
   "view": {
     "yourTurn": true,
-    "hand": [{ "card": "Pengu", "kind": "character", "top": 5, "right": 3, "bottom": 2, "left": 4, "color": "blue" }],
-    "board": [{ "cell": "C2", "card": "Volt", "owner": "opponent", "sides": { "north": 1, "east": 4, "south": 2, "west": 3 } }],
-    "legalMoves": ["Pengu@A1", "Pengu@B1", "..."]
-  },
-  "replayUrl": "https://www.smashandclash.in/replay#z=…"
+    "hand": [{ "card": "Pengu", "cardId": 1, "kind": "character", "top": 5, "right": 4, "bottom": 3, "left": 2, "color": "pink" }],
+    "board": [{ "cell": "C2", "card": "Luna", "cardId": 2, "owner": "opponent", "sides": { "north": 5, "east": 3, "south": 6, "west": 4 } }],
+    "legalMoves": ["Pengu@A1", "Pengu@B1"]
+  }
 }
 ```
 

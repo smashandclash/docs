@@ -1,0 +1,111 @@
+---
+title: "SDK lifecycle"
+description: "The exact 0.5.0 contracts for game state, links, waits, credentials and request recovery."
+---
+
+This reference complements the [SDK method index](/sdk). The implementation and exported TypeScript declarations in `@smashandclash/sdk` are the contract for SDK 0.5.0; [REST](/connect/rest) describes the wire API.
+
+## Three views of a game
+
+| Value | Who reads it | Shape and freshness |
+| --- | --- | --- |
+| `Game.state` / `Game.view` | A player with a seat token | `GameState` with a `PlayerView`: named legal moves, your hand, a flat board and counts for hidden cards |
+| `await game.sync()` | That same player | Separate `SeatSync`: board matrix and hand by card ID, public events, move cursor; it does **not** update the `Game` object's cached state |
+| `games.watch()` / `watchSync()` | A spectator | Public board and scores; spectator sync has counts for both hands, never a player's hand |
+
+`play()`, `refresh()`, `waitForTurn()`, `leave()` and `resign()` replace `game.state` with their response. `replay()`, `review()` and `sync()` return separate data. Getters such as `yourTurn`, `over`, `legalMoves` and `winner` read the cached `game.state`.
+
+`game.over` includes both `finished` and `abandoned`. `game.winner` is relative to your seat (`you`, `opponent`, `draw`, or `null`), while `GameState.winner` and `SeatSync.winner` use `A`, `B`, `draw`, or `null`. Use the top-level winner for result handling.
+
+## Inputs and returned handles
+
+| Call | Options | Returns |
+| --- | --- | --- |
+| `games.startHouse()` | `name`, `ruleset`, `strength`, `as` | `Game`; strength is 800–1600, default 1200 |
+| `games.createDuel()` | `name`, `ruleset`, `as`, `opponent`, `opponentName`, `rating` | `Game`; normally a code, or an invite for `opponent: 'person'` |
+| `games.joinDuel(code)` / `claim(inviteUrl)` / `open(input)` | `name`, `as`, `rating` | `Game` for join/claim; `Opened` union for open |
+| `games.quickMatch()` | `name`, `ruleset`, `as`, `opponent`, `rating` | `Game` that may still be waiting |
+| `games.createMatch()` | `players`, `ruleset` | `HostedMatch` with two invites and no player token |
+
+The rulesets are `mutators` (default) and `classic`. `as` is `agent` or `person`. A duel's `opponent` is `agent` or `person`; quick match also accepts `any` (default). Ratings are client-supplied values; your client owns rating updates.
+
+## Opening links
+
+`parseLink(input)` parses a code or URL without making a request. It returns a `SmashLink` or `null`. `joinLink(code, base?)` and `watchLink(id, base?)` build links; the default base is the official website.
+
+`games.open()` makes the appropriate API call and returns a discriminated union:
+
+| `kind` | Data | Meaning |
+| --- | --- | --- |
+| `game` | `game: Game` | A code joined or an invite claimed; this operation takes a seat |
+| `watch` | `game: GameState` | A watch link/game ID, or a code whose join returned a 409 |
+| `replay` | `replay: Replay` | A decoded shared replay |
+| `challenge` | `challenge: ChallengeStatus` | A Hosted Agent Challenge's status |
+
+Handle each `kind` before reading its data. A code does not guarantee a seat: a full room opens to watch. Unsupported input throws `SmashAndClashError` with status 400. The host in a parsed link does not change your configured API origin.
+
+## Waiting and completion
+
+| Method | Default bound | What completion means |
+| --- | --- | --- |
+| `game.waitForTurn(seconds)` | One request, 20 seconds; clamped to 1–20 | Returns the latest state, even if it is still waiting or the opponent's turn |
+| `game.waitForOpponent({ timeoutMs })` | 10 minutes | Loops while waiting; throws a 408 `timeout` if its deadline is reached |
+| `game.playOut(choose, { maxTurns })` | 400 loop iterations | Returns when over or the budget is used; both waits and played moves consume iterations |
+| `games.spectate(id, { timeoutMs })` | 2 hours | Yields an initial public snapshot and changed snapshots, then stops on completion or timeout |
+| `games.feed(id, { since, timeoutMs })` | 2 hours | Yields individual public moves, then stops on completion or timeout |
+| `match.waitForEnd({ timeoutMs, onChange })` | 2 hours | Returns the latest state; it may still be active or waiting when time runs out |
+| `challenges.waitForResult(token, { intervalMs, timeoutMs })` | Every 15 seconds for 30 minutes | Returns `played`, `expired`, or a still-`pending` status when time runs out |
+
+Time limits are checked between requests or sleeps, so they are not hard request deadlines. These helpers do not accept an `AbortSignal`. Breaking an async iterator stops subsequent polling after control returns to your loop.
+
+Check `status`, `yourTurn` or `over` after waiting. A network or API error can reject any of these methods; a timeout is not a verified result.
+
+```ts
+import { SmashAndClash, greedyMove } from '@smashandclash/sdk';
+
+const sc = new SmashAndClash({ client: 'example-agent/1.0' });
+const game = await sc.games.startHouse({ name: 'Example agent' });
+
+await game.playOut(greedyMove, { maxTurns: 400 });
+if (game.state.status === 'finished') {
+  console.log(game.winner, game.replayUrl);
+} else {
+  console.log('Latest state:', game.state.status, game.state.moveCount);
+}
+```
+
+`choose(view, seat)` may return a move name or a Promise of one. Choose from `view.legalMoves`; `firstLegalMove` and `greedyMove` are included strategies.
+
+## Sync and move cursors
+
+Use `since: 0` to receive all recorded moves, then pass the previous response's `moveCount`. `wait` is seconds, clamped to 1–20 when enabled. `game.sync()` is authenticated; `games.watchSync(id, { since, status, wait })` is public.
+
+`games.feed(id)` starts after moves already played. Pass `{ since: 0 }` to replay those first. `games.spectate()` yields snapshots and can skip intermediate positions between polls; use the feed when every move matters.
+
+After drawing a seat sync, call `game.refresh()` before using `game.legalMoves` for the next input. Also refresh when `sync.status` differs from `game.state.status`: the next seat-sync long-poll sends the cached status. Do not assign a `SeatSync` to `game.state`; the shapes differ. See [Draw your own board](/play/board).
+
+## Seats, invites and cancellation
+
+- Save `{ id: game.id, playerToken: game.playerToken }` in private storage. Restore it with `games.resume(id, token)`.
+- Invite URLs grant a seat. Claiming the same invite again rotates the token, invalidating the earlier one. Save invites when created; resuming a seat does not recover its invite URL.
+- An invite game is **unlisted**. Anyone who knows its game ID can watch the public board and, after completion, read its replay and review.
+- `game.leave()` only cancels a waiting game. If a pairing has already landed it throws a 409; refresh and offer the game to the player.
+- `game.resign()` concedes an active game. It also cancels a waiting game, so use `leave()` for a queue's Cancel button.
+
+Creating a game requires no account or global API key. Player tokens authorize seats; names, `as`, `client` and supplied ratings do not prove identity. [Fair play](/reference/fair-play) explains what each reader can see.
+
+## Errors and retries
+
+API failures throw `SmashAndClashError` with `status`, `code`, `message` and optional `hint`. Fetch failures can remain native `TypeError`s. `isNetworkError(error)` recognizes fetch-style `TypeError`s, excluding `Illegal invocation`; it is not proof that a request failed before reaching the server.
+
+The HTTP layer retries a 429 after `Retry-After`, up to `retries` times (default 2). Reads and explicitly repeatable requests retry network failures after 250 ms, then 750 ms. Any request may retry when its connection is known never to have opened. Creation requests are not blindly repeated after an ambiguous disconnect. Claims and replay-link reads are marked repeatable.
+
+Separately, `game.play()`, `game.leave()` and `game.resign()` refresh after a dropped request to discover whether it landed. They may send once more if needed. **This state reconciliation still runs with `retries: 0`.** Avoid wrapping creation calls in a generic retry loop that might create duplicate rooms or challenges.
+
+`sc.http.rateLimit` is the latest rate-limit information received, not a reservation of future quota. It can remain from an earlier response when a later response has no rate-limit header.
+
+## Other public exports
+
+The package exports `SmashAndClash`, `Game`, `HostedMatch`, `Http`, `SmashAndClashError`, `DEFAULT_BASE_URL`, `SDK_VERSION`, `sdkHeader`, `parseRateLimit`, `isNetworkError`, `parseLink`, `joinLink`, `watchLink`, `cellToRC`, `rcToCell`, `boardSides`, `firstLegalMove` and `greedyMove`, plus the TypeScript data and options types.
+
+`cellToRC()` returns `null` for an invalid cell. `rcToCell()` converts coordinates without validating their bounds. `boardSides()` rotates character values for seat B. Prefer the higher-level client methods over `Http.request()`; low-level requests do not add game-state reconciliation for you.

@@ -7,6 +7,8 @@ description: "smashandclash (beta): the game in your terminal, and a stable JSON
 npx smashandclash              # or: npm install -g smashandclash  (also installs `snc`)
 ```
 
+This page covers CLI **0.5.0**, on Node 18+. It plays over the HTTP API, including against the house. `doctor --offline` only skips connectivity probes; gameplay still needs a connection.
+
 ## For people
 
 `smashandclash` opens a full-screen game. It uses the alternate screen, so your scrollback stays untouched.
@@ -48,17 +50,21 @@ smashandclash start --json             # → {"ok":true,"command":"start","data"
 smashandclash move 3 --json            # the 3rd legal move
 smashandclash move Pengu@C2 --json     # or by name
 smashandclash state --json
-smashandclash wait --json              # your turn, or the other player joining
+smashandclash wait --json              # one long-poll, up to 20 seconds; inspect the returned state
 smashandclash resign --json
 smashandclash invite --json            # a duel for a person: data.inviteUrl
 smashandclash quick --json             # the queue: paired, or data.status "waiting"
 smashandclash claim <invite link> --json
 ```
 
-**Envelope.** Each command writes exactly one JSON line to stdout:
+**Envelope.** Data commands with `--json` normally write one JSON line to stdout:
 
 - `{ok: true, command, data, meta: {apiVersion, baseUrl, rateLimit?, next?}}`;
 - or `{ok: false, error: {code, message, hint, status}}`.
+
+`move 3` selects the third legal move (index 2 in the JSON array). `meta.next` can be prose or a command template: inspect `data.status` and `data.view.yourTurn` before deciding what to do. `wait` can return a waiting game or the opponent's turn.
+
+The exceptions are `help`, `--help`, `version`, `--version` and a commandless noninteractive invocation, which print text even with `--json`. `duel create --strategy greedy --json` writes two JSON lines: the initial room and the state after autoplay. For a one-response agent loop, create without `--strategy`, then call `wait`, `state` and `move`.
 
 **Exit codes:**
 
@@ -107,4 +113,17 @@ smashandclash docs                                     # llms.txt
 smashandclash games                                    # your games on this machine
 ```
 
-State lives in `~/.smashandclash/state.json`, readable only by you. Set `SMASHANDCLASH_HOME` to move it.
+## State and configuration
+
+State lives in `~/.smashandclash/state.json`: your name and the latest 30 games, including secret tokens and invite URLs. The CLI requests owner-only permissions on supporting systems; use your operating system's permissions to protect the directory. A read-only home does not stop gameplay, but state may not be saved.
+
+| Setting | Purpose |
+| --- | --- |
+| `SMASHANDCLASH_HOME` | State directory; give each concurrent agent its own directory |
+| `--name NAME` | Player name |
+| `--base-url URL` | API origin without `/api/v1`; overrides `SMASHANDCLASH_BASE_URL` |
+| `SMASHANDCLASH_BASE_URL` | Default API origin; otherwise the official website |
+
+Resuming normally uses the saved game's origin unless `--base-url` is explicit. Quote URLs in shell commands, especially invite links containing `&`.
+
+Interactive and line-mode players use `as: 'person'`; JSON and built-in strategy commands use agent seats. `resign` concedes a started game. To cancel a queue entry without conceding a pairing that arrived at the same time, use SDK [`game.leave()`](/reference/sdk-lifecycle#seats-invites-and-cancellation).

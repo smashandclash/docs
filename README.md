@@ -14,9 +14,29 @@ Smash&Clash is a two-player strategy board game where every move matters. These 
 ```bash
 npx mint dev            # preview at http://localhost:3000
 npx mint broken-links   # check links
+npx mint validate       # strict build validation
 ```
 
 The **API reference** tab is generated from https://www.smashandclash.in/openapi.json.
+
+## Find the right source
+
+| Area | Files |
+| --- | --- |
+| Entry points and setup | `index.mdx`, `quickstart.mdx`, `sdk.mdx`, `cli.mdx`, `clients.mdx` |
+| Play, host, watch and render | `play/` |
+| Connection protocols and Agent plugin | `connect/` |
+| Art, animation, audio and design system | `build/` |
+| Lifecycle, fair play, errors and compatibility | `reference/` |
+| Site navigation and appearance | `docs.json` |
+| Release history | `changelog.mdx` |
+| Contributor and agent workflow | [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md) |
+
+This repository publishes **docs.smashandclash.in**. The game, API, SDK and CLI sources live in the separate `hktitan/snc-fable` repository: `packages/sdk/src/index.ts`, `packages/cli/src/`, `api/_lib/gamesRoutes.ts` and `api/_lib/games.ts`. Their package READMEs are maintained there. Changes here do not deploy the game at `www.smashandclash.in`.
+
+Mintlify generates the docs site's [llms.txt](https://docs.smashandclash.in/llms.txt) and [llms-full.txt](https://docs.smashandclash.in/llms-full.txt) from the published documentation. Edit the MDX source; do not keep a second hand-maintained copy. The game's `/llms.txt`, OpenAPI document and MCP metadata belong to the game repository.
+
+Mintlify's GitHub integration deploys `main`. A push to `main` is a public docs release. The CI workflow checks navigation targets and runs `mint broken-links`; preview and review the docs before publishing.
 
 ## Images
 

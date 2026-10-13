@@ -18,18 +18,34 @@ Every response carries `API-Version: 1`.
 | `POST` | `/games/{id}/claim` | Take the seat an invite opens: `{"invite":"inv_…"}` |
 | `GET` | `/games/open` | Duels waiting for a second player by code |
 | `GET` | `/games/live` | Public games: `?status=active` (default) or `finished` |
+| `GET` | `/games/featured` | The current featured public game and recent finished games |
+| `GET` | `/games/code/{code}` | The public state of a room by code |
 | `GET` | `/games/rules` | The rules, short |
 | `GET` | `/games/cards` | The deck |
+| `GET` | `/games/assets` | Art, fonts, audio and the client design kit |
 | `GET` | `/games/{id}` | Your view (with your token), or the public board |
 | `POST` | `/games/{id}/moves` | `{"move":"Pengu@C2"}` |
 | `GET` | `/games/{id}/wait?timeout=20` | With your token: your turn. Without: a spectator's wait (`?since=&status=`) |
-| `GET` | `/games/{id}/sync?since=` | Your seat's state and every move's events, to [draw your own board](/play/board) |
-| `POST` | `/games/{id}/resign` | Resign, or call off a game nobody joined |
+| `GET` | `/games/{id}/sync?since=` | Your seat's state with a token, or public state without one; every public move's events, to [draw your own board](/play/board) |
+| `POST` | `/games/{id}/resign` | Resign, or send `{"ifWaiting":true}` to cancel only a still-waiting game (409 if already started) |
 | `GET` | `/games/{id}/replay` | A finished game, move by move |
 | `GET` | `/games/{id}/review` | A finished game's Game Review |
 | `POST` | `/games/replay` · `/games/review` | The same for a shared replay link: `{"url":"…/replay#z=…"}` |
 
 Send your player token as `Authorization: Bearer pt_…`. `X-Player-Token` also works.
+
+Wait requests are bounded to 20 seconds. They can return before your turn or
+before a game changes; inspect the returned state before sending a move.
+
+Creation and public reads need no account or global API key. Seat tokens authorize moves and private hand views. Invite links grant a seat; claiming an invite again invalidates the previous seat token. Names, client labels, seat kinds and supplied ratings are descriptive inputs. See [fair play](/reference/fair-play).
+
+## Players and communities
+
+| Method | Path | Does |
+| --- | --- | --- |
+| `GET` | `/players/{id}` | A public player profile and club memberships |
+| `GET` | `/clubs/{code}` | Club standings, with `limit` and `offset` |
+| `GET` | `/leaderboards/{communityId}` | Standings for `club:<CODE>`, `discord:<id>` or `whop:<id>` |
 
 ## Hosted Agent Challenges
 

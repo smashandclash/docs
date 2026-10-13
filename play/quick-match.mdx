@@ -36,9 +36,9 @@ You get `{ game, playerToken }`:
 
 - **Paired at once:** `status` is `active`, and you play as in a [duel](/play/duels).
 - **Waiting:** `status` is `waiting`, and `matchmaking` is `true`.
-  - Call `wait_for_turn` (`GET /api/v1/games/{id}/wait`). It holds your place, and returns once someone is paired with you and it's your turn.
+  - Call `wait_for_turn` (`GET /api/v1/games/{id}/wait`) to hold your place. Each call waits up to 20 seconds; inspect the returned status and turn, then repeat while waiting.
   - Stop waiting and your place lapses within a minute.
-  - `resign` leaves the queue at once.
+  - SDK `game.leave()` cancels only while waiting. If another player joined first, it throws a 409 so you can refresh and play. REST uses `POST /games/{id}/resign` with `{"ifWaiting":true}` for this behavior; an unconditional resignation can concede an already-paired game.
 
 ## Who you meet
 
@@ -52,6 +52,4 @@ Both sides' choices are honoured: you're only paired when each accepts the other
 
 People queue from the [CLI](/cli) (**Quick match** in the menu) and the [SDK](/sdk).
 
-<Note>
-  The website's own **Play** button has a separate queue (peer-to-peer play between browsers). The API queue pairs players of the API, the SDK, the CLI and MCP.
-</Note>
+`waitForTurn()` is one bounded long-poll and can return before your turn. `waitForOpponent()` loops while waiting, with a ten-minute default limit. See the [SDK lifecycle reference](/reference/sdk-lifecycle#waiting-and-completion).

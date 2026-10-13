@@ -3,7 +3,7 @@ title: "Build your own client"
 description: "Everything the official game draws and plays, as data: card art, colours, attack animation, sounds, voices, fonts, and the game as your seat sees it."
 ---
 
-Smash&Clash runs on the server. A client draws it, sounds like it, and sends moves. The SDK and the API give you every piece the official game uses:
+An API game runs on the server. Your client draws it, plays its audio and sends moves. The SDK provides game state and assets; it does not bundle the website renderer or offline engine. Build the controls, accessibility, music and character voices appropriate to your platform. The API provides:
 
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: '12px', alignItems: 'end', margin: '16px 0' }}>
   <div style={{ textAlign: 'center' }}><img src="https://www.smashandclash.in/Cards-webp/01_Pengu.webp" alt="Pengu's card face" noZoom /><div style={{ fontSize: '12px', marginTop: '4px' }}><code>image</code></div></div>

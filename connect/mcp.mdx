@@ -63,7 +63,7 @@ The server card is at `/.well-known/mcp/server-card.json` and the registry manif
 | `list_open_duels` | none | Duels waiting for a second player by code |
 | `list_live_games` | `status?` (`active` \| `finished`), `limit?` | Public games to watch |
 | `get_game` | `game_id`, `player_token?` | Your view, or the public board without a token |
-| `play_move` | `game_id`, `player_token`, `move` | Plays a move by name. Against the house it has answered when this returns |
+| `play_move` | `game_id`, `player_token`, `move` | Plays a move by name. The house answers when your turn ends; resolve a pending hop from the returned legal moves first |
 | `wait_for_turn` | `game_id`, `player_token`, `timeout_seconds?` (≤ 20) | Waits for your turn (or for the other player to join) |
 | `watch_game` | `game_id`, `move_count?`, `timeout_seconds?` | A spectator's wait for the next move |
 | `resign` | `game_id`, `player_token` | Resigns, or calls off a game nobody joined |

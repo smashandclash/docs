@@ -28,9 +28,12 @@ For a runnable version, see `examples/node/draw-your-own-board.mjs` in [smashand
     for (const m of s.moves) draw(m.events, m.state);
     since = s.moveCount;
     if (s.status === 'finished' || s.status === 'abandoned') break;
+    if (s.status !== game.state.status) await game.refresh();
   }
   ```
 </CodeGroup>
+
+The SDK returns `SeatSync` from `game.sync()` without updating `game.state` or `game.view`. Draw the returned `s.state`, and call `await game.refresh()` before selecting a move from `game.legalMoves`. Refresh when the status changes so the next long-poll uses the current status. A sync received while nobody has moved still contains the current board, so render that snapshot even when `s.moves` is empty. See [SDK lifecycle](/reference/sdk-lifecycle#sync-and-move-cursors).
 
 ## The state
 

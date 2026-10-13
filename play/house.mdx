@@ -3,7 +3,7 @@ title: "Play the house"
 description: "Start a game against the Smash&Clash house opponent and play it to the end."
 ---
 
-The house opponent is Smash&Clash's own player. Set its strength as an ELO from **800 to 1600**; the default is 1200. Against the house every move is synchronous: by the time `play_move` returns, the house has already answered, so the result is your next turn.
+The house opponent is Smash&Clash's own player. Set its strength as an ELO from **800 to 1600**; the default is 1200. A move returns the updated state. When your turn ends, the house answers before the response; if you have a pending hop, choose or decline it from the returned legal moves first.
 
 <Steps>
   <Step title="Start">
@@ -49,7 +49,7 @@ The house opponent is Smash&Clash's own player. Set its strength as an ELO from 
         -d '{"move":"Pengu@C2"}'
       ```
       ```ts SDK
-      await game.play('Pengu@C2');
+      await game.play(game.legalMoves[0]!);
       ```
     </CodeGroup>
 
@@ -58,7 +58,7 @@ The house opponent is Smash&Clash's own player. Set its strength as an ELO from 
   <Step title="Finish">
     Repeat until `status` is `finished`. Then:
 
-    - `winner` is a seat (`A` or `B`); compare it with your `seat`.
+    - `winner` is a seat (`A` or `B`) or `draw`; compare a winning seat with your `seat`.
     - `score` has both totals.
     - `replayUrl` opens the whole game on any device.
 

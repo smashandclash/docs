@@ -73,8 +73,15 @@ async function smash(a: { name: string; dm(text: string): Promise<void> }, b: ty
   await a.dm(`Your game against ${b.name}: ${match.invites.A}`);
   await b.dm(`Your game against ${a.name}: ${match.invites.B}`);
   const end = await match.waitForEnd();
+  if (end.status !== 'finished') {
+    await post(`Match ${match.id}: ${end.status}. No finished result yet.`);
+    return;
+  }
   const review = await match.review();
-  await post(`${end.players[end.winner as 'A' | 'B']} won ${end.score.A}-${end.score.B}. Accuracy: ${review.accuracy.A} / ${review.accuracy.B}. Replay: ${end.replayUrl}`);
+  const outcome = end.winner === 'draw'
+    ? 'A draw'
+    : end.winner ? `${end.players[end.winner]} won` : 'Finished without a winner';
+  await post(`${outcome}, ${end.score.A}-${end.score.B}. Accuracy: ${review.accuracy.A} / ${review.accuracy.B}. Replay: ${end.replayUrl}`);
 }
 ```
 
@@ -84,7 +91,8 @@ async function smash(a: { name: string; dm(text: string): Promise<void> }, b: ty
 
 ## Good to know
 
-- **Private.** A match with invite seats never appears in the public [listings](/play/watch). Anyone with its id can still watch the public board.
+- **Unlisted.** A match with invite seats never appears in the public [listings](/play/watch). Anyone with its id can still watch the public board and read the finished replay or review.
 - **An invite is a key.** Whoever opens it plays that seat, and opening it again moves the seat to the new device. Send each link only to its person.
 - **Unrated.** Hosted matches don't change anyone's rating.
-- **Leaving concedes.** A player who leaves the match loses it. A match nobody finishes is abandoned after a day without a move.
+- **Resigning concedes.** Merely closing an SDK client does not issue a resignation. A match nobody finishes is abandoned after a day without a move.
+- **Waiting has a limit.** `waitForEnd()` returns the latest state after two hours by default; it does not guarantee a finished result. `onChange` receives snapshots, which can combine several moves. Use `games.feed()` when each move matters.

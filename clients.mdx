@@ -78,7 +78,7 @@ The website names its surface (`smashandclash.in`, `android`, `windows`, `discor
 
 ### Ratings
 
-A client can send its player's rating (their ELO, as the client keeps it) when it creates, joins or claims a seat. Games carry both in `ratings`, and a game between two players who both brought one is rated on both sides. The website always sends one.
+A client can send its player's rating (their ELO, as the client keeps it) when it creates, joins or claims a seat. Games carry those values in `ratings`; each client decides how to apply and save its rating changes. The SDK does not update player profiles, and a supplied rating is not verified identity.
 
 ## In code
 
