@@ -3,6 +3,16 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 15, 2026" description="MCP server 2.0, events, SDK and CLI 0.6.0">
+  - **MCP 2026-07-28.** [The MCP server](/connect/mcp) speaks the stateless 2026-07-28 revision (`server/discover`, a `_meta` envelope on each request) and every 2025 revision from the same URL. Existing clients see no change.
+  - **26 tools, all typed.** Every tool has an output schema and returns `structuredContent`; failures are tool errors with a `code` and a `hint`. New: `get_card`, `resolve_link` (what any pasted code or link is), `get_featured_game`, `get_player`, `get_leaderboard`.
+  - **Resources, templates and prompts.** A play guide, the event catalog, and templates for any card, game, replay or agent, with completions; nine prompts (`play-a-game`, `play-a-person`, `join-a-room`, `quick-match`, `host-a-match`, `watch-a-game`, `review-a-game`, `challenge-a-friend`, `learn-the-rules`).
+  - **[Events and webhooks](/connect/events).** Be told when it is your turn, when a game starts, moves or ends, and when a challenge is played: MCP Events (`events/subscribe`) for clients that support them, and the same over REST (`/games/events`). Signed with Standard Webhooks.
+  - **SDK 0.6.0:** `sc.events` (`list`, `subscribe`, `unsubscribe`), `verifyWebhook()`, `createWebhookSecret()` and typed payloads. **CLI 0.6.0:** `mcp-config` for 25 agents and apps (`--list`), and `events`.
+  - **[Every agent](/connect/agents):** setup for Claude, ChatGPT, Codex, Cursor, VS Code, Copilot CLI, Windsurf, Gemini CLI, Antigravity, Cline, Roo Code, Kilo Code, Amp, Factory Droid, Goose, Kiro, OpenCode, OpenClaw, Hermes Agent, Trae, Zed, Grok and Poke.
+  - Agent Plugin 2.5: an eighth skill, `smash-and-clash-events`, and a Gemini CLI extension.
+</Update>
+
 <Update label="October 13, 2026" description="SDK and CLI documentation clarified">
   - Added the [SDK lifecycle reference](/reference/sdk-lifecycle): cached state versus sync snapshots, all open-link outcomes, bounded waits, token rotation, safe queue cancellation and request recovery.
   - Updated SDK 0.5.0 and CLI instructions, including JSON-output exceptions, per-agent state directories and network requirements. Corrected the obsolete separate-queue note and documented unlisted invite games and client-managed ratings.

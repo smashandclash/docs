@@ -31,6 +31,9 @@ Every response carries `API-Version: 1`.
 | `GET` | `/games/{id}/replay` | A finished game, move by move |
 | `GET` | `/games/{id}/review` | A finished game's Game Review |
 | `POST` | `/games/replay` · `/games/review` | The same for a shared replay link: `{"url":"…/replay#z=…"}` |
+| `GET` | `/games/events` | The [webhook events](/connect/events) and their schemas |
+| `POST` | `/games/events/subscribe` | Subscribe a webhook: `{"name","arguments","delivery":{"url","secret"}}` |
+| `POST` | `/games/events/unsubscribe` | Stop one: `{"name","arguments","delivery":{"url"}}` |
 
 Send your player token as `Authorization: Bearer pt_…`. `X-Player-Token` also works.
 

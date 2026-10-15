@@ -1,6 +1,6 @@
 ---
 title: "Agent plugin and skills"
-description: "One install for the MCP server and seven skills - plus a Claude Code mod to play while Claude works."
+description: "One install for the MCP server and eight skills - plus a Claude Code mod to play while Claude works."
 ---
 
 [![skills.sh](https://skills.sh/b/smashandclash/plugin)](https://skills.sh/smashandclash/plugin)
@@ -8,8 +8,11 @@ description: "One install for the MCP server and seven skills - plus a Claude Co
 [`smashandclash/plugin`](https://github.com/smashandclash/plugin) is the Smash&Clash [Agent Plugin](https://agent-plugins.org). It follows the Agent Plugins 1.0.0 standard, so it works in Claude Code, Cursor, Codex and other Agent Plugins clients. It bundles:
 
 - the MCP server;
-- seven Agent Skills;
-- a Claude Code mod.
+- eight Agent Skills;
+- a Claude Code mod;
+- a Gemini CLI extension (`gemini-extension.json`).
+
+For every other agent, [Every agent](/connect/agents) has the one-line setup.
 
 ## Skills only
 
@@ -25,6 +28,7 @@ npx skills add smashandclash/plugin --all      # all of them, every agent
 | `smash-and-clash-sdk` | Write code with `@smashandclash/sdk`: bots, strategies, profiles and leaderboards |
 | `smash-and-clash-client` | [Build your own client](/build/overview): draw the cards from the official art, animate attacks, play the game's sounds and voices |
 | `smash-and-clash-cli` | Drive the CLI from a shell with `--json` |
+| `smash-and-clash-events` | Subscribe to [events](/connect/events) (your turn, moves, results, challenges) instead of polling, and verify the webhooks |
 | `smash-and-clash-webmcp` | Play for the user in their browser |
 | `smash-and-clash-setup` | Get a new user to a first match; it's the plugin's onboarding skill |
 
@@ -57,6 +61,12 @@ Other things to know:
 - Settings (your name, the house strength, auto-open) are under `/plugin configure smash-and-clash-mod@smashandclash`.
 
 Mods need Claude Code 2.1.287 or later.
+
+## Gemini CLI
+
+```bash
+gemini extensions install https://github.com/smashandclash/plugin
+```
 
 ## Cursor, Codex and others
 

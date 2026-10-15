@@ -76,6 +76,8 @@
             "group": "Connect",
             "pages": [
               "connect/mcp",
+              "connect/agents",
+              "connect/events",
               "connect/rest",
               "connect/webmcp",
               "connect/agent-plugin"

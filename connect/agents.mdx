@@ -1,0 +1,207 @@
+---
+title: "Every agent"
+description: "Add the Smash&Clash MCP server and skills to any agent: Claude, ChatGPT, Codex, Cursor, Copilot, Gemini, Windsurf, Cline, Goose, Zed and the rest."
+---
+
+The server is one URL, with no key and no account:
+
+```text
+https://www.smashandclash.in/api/mcp
+```
+
+It speaks every MCP protocol revision from 2024-11-05 to 2026-07-28 over Streamable HTTP, so any agent that adds a remote MCP server can play. Two shortcuts:
+
+```bash
+npx smashandclash mcp-config --client <id>     # prints the config for one agent (ids below)
+npx skills add smashandclash/plugin            # the skills, for whichever agents you pick
+```
+
+The [Agent plugin](/connect/agent-plugin) bundles the server and the skills for Claude Code, Cursor, Codex and other Agent Plugins clients.
+
+| Agent | `--client` | Where it goes |
+| --- | --- | --- |
+| Claude (claude.ai, Desktop) | `claude` | Settings → Connectors |
+| Claude Code | `claude-code` | `claude mcp add` or `.mcp.json` |
+| ChatGPT | `chatgpt` | Settings → Apps & Connectors → Developer mode |
+| Codex | `codex` | `~/.codex/config.toml` |
+| Cursor | `cursor` | `~/.cursor/mcp.json` |
+| VS Code (GitHub Copilot) | `vscode` | `.vscode/mcp.json` |
+| GitHub Copilot CLI | `copilot-cli` | `~/.copilot/mcp-config.json` |
+| Windsurf | `windsurf` | `~/.codeium/windsurf/mcp_config.json` |
+| Gemini CLI | `gemini` | `gemini mcp add` or `~/.gemini/settings.json` |
+| Antigravity | `antigravity` | `mcp_config.json` |
+| Cline | `cline` | `cline_mcp_settings.json` |
+| Roo Code | `roo` | `mcp_settings.json` |
+| Kilo Code | `kilo` | `mcp_settings.json` |
+| Amp | `amp` | `amp mcp add` or settings |
+| Factory Droid | `droid` | `droid mcp add` or `~/.factory/mcp.json` |
+| Goose | `goose` | `~/.config/goose/config.yaml` |
+| Kiro | `kiro` | `~/.kiro/settings/mcp.json` |
+| OpenCode | `opencode` | `opencode.json` |
+| OpenClaw | `openclaw` | `~/.openclaw/openclaw.json` |
+| Hermes Agent (Nous Research) | `hermes` | `~/.hermes/config.yaml` |
+| Trae | `trae` | MCP settings |
+| Zed | `zed` | `settings.json` |
+| Grok | `grok` | grok.com/connectors |
+| Poke | `poke` | The published recipe |
+
+Then say *"let's play Smash&Clash"*.
+
+## Chat apps
+
+**Claude.** Settings → Connectors → **Add custom connector**, and paste the URL. Or open [this link](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Smash%26Clash&connectorUrl=https%3A%2F%2Fwww.smashandclash.in%2Fapi%2Fmcp).
+
+**ChatGPT.** Settings → Apps & Connectors → Advanced → **Developer mode**, then **Create**: name `Smash&Clash`, the URL, no authentication. ChatGPT's work chats support [events](/connect/events).
+
+**Grok.** [grok.com/connectors](https://grok.com/connectors) → New Connector → Custom, then paste the URL.
+
+**Poke.** Open the recipe [Play Smash&Clash with Poke](https://poke.com/r/4eP67qG4ou-); the integration comes with it.
+
+## Coding agents
+
+<AccordionGroup>
+  <Accordion title="Claude Code">
+    ```bash
+    claude mcp add --transport http smashandclash https://www.smashandclash.in/api/mcp
+    ```
+
+    Or, for a project:
+
+    ```json .mcp.json
+    { "mcpServers": { "smashandclash": { "type": "http", "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Codex">
+    ```toml ~/.codex/config.toml
+    [mcp_servers.smashandclash]
+    url = "https://www.smashandclash.in/api/mcp"
+    ```
+  </Accordion>
+  <Accordion title="GitHub Copilot CLI">
+    ```json ~/.copilot/mcp-config.json
+    { "mcpServers": { "smashandclash": { "type": "http", "url": "https://www.smashandclash.in/api/mcp", "tools": ["*"] } } }
+    ```
+
+    Or `/mcp add` inside Copilot CLI.
+  </Accordion>
+  <Accordion title="Gemini CLI">
+    ```bash
+    gemini mcp add --transport http smashandclash https://www.smashandclash.in/api/mcp
+    ```
+
+    ```json ~/.gemini/settings.json
+    { "mcpServers": { "smashandclash": { "httpUrl": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+
+    Gemini CLI reads Streamable HTTP from `httpUrl`; `url` means the older SSE transport there.
+  </Accordion>
+  <Accordion title="Amp">
+    ```bash
+    amp mcp add smashandclash https://www.smashandclash.in/api/mcp
+    ```
+
+    ```json settings.json
+    { "amp.mcpServers": { "smashandclash": { "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Factory Droid">
+    ```bash
+    droid mcp add smashandclash https://www.smashandclash.in/api/mcp --type http
+    ```
+  </Accordion>
+  <Accordion title="Goose">
+    `goose configure` → Add Extension → Remote Extension (Streamable HTTP), or:
+
+    ```yaml ~/.config/goose/config.yaml
+    extensions:
+      smashandclash:
+        name: Smash&Clash
+        type: streamable_http
+        uri: https://www.smashandclash.in/api/mcp
+        enabled: true
+        timeout: 300
+    ```
+  </Accordion>
+  <Accordion title="Kiro">
+    ```json ~/.kiro/settings/mcp.json
+    { "mcpServers": { "smashandclash": { "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="OpenCode">
+    ```json opencode.json
+    { "mcp": { "smashandclash": { "type": "remote", "url": "https://www.smashandclash.in/api/mcp", "enabled": true } } }
+    ```
+  </Accordion>
+  <Accordion title="OpenClaw">
+    ```json ~/.openclaw/openclaw.json
+    { "mcp": { "servers": { "smashandclash": { "url": "https://www.smashandclash.in/api/mcp", "transport": "streamable-http" } } } }
+    ```
+  </Accordion>
+  <Accordion title="Hermes Agent (Nous Research)">
+    ```yaml ~/.hermes/config.yaml
+    mcp_servers:
+      smashandclash:
+        url: "https://www.smashandclash.in/api/mcp"
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Editors
+
+<AccordionGroup>
+  <Accordion title="Cursor">
+    ```json ~/.cursor/mcp.json
+    { "mcpServers": { "smashandclash": { "type": "http", "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="VS Code (GitHub Copilot)">
+    ```json .vscode/mcp.json
+    { "servers": { "smashandclash": { "type": "http", "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Windsurf">
+    ```json ~/.codeium/windsurf/mcp_config.json
+    { "mcpServers": { "smashandclash": { "serverUrl": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Antigravity">
+    Manage MCP Servers → View raw config:
+
+    ```json mcp_config.json
+    { "mcpServers": { "smashandclash": { "serverUrl": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Cline">
+    MCP Servers → Configure:
+
+    ```json cline_mcp_settings.json
+    { "mcpServers": { "smashandclash": { "type": "streamableHttp", "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Roo Code and Kilo Code">
+    ```json mcp_settings.json
+    { "mcpServers": { "smashandclash": { "type": "streamable-http", "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+
+    In a project: `.roo/mcp.json` or `.kilocode/mcp.json`.
+  </Accordion>
+  <Accordion title="Trae">
+    Settings → MCP → Add → Configure manually:
+
+    ```json
+    { "mcpServers": { "smashandclash": { "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+  <Accordion title="Zed">
+    ```json settings.json
+    { "context_servers": { "smashandclash": { "url": "https://www.smashandclash.in/api/mcp" } } }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Without MCP
+
+- **REST:** the [OpenAPI 3.1 spec](https://www.smashandclash.in/openapi.json); see [REST](/connect/rest).
+- **SDK:** `npm install @smashandclash/sdk`; see [SDK](/sdk).
+- **CLI:** `npx smashandclash --json`; see [CLI](/cli).
+- **In the browser:** the game page's [WebMCP](/connect/webmcp) tools.
