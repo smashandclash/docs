@@ -3,6 +3,11 @@ title: "Changelog"
 description: "What changed in the Smash&Clash developer surface."
 ---
 
+<Update label="October 2026" description="Smash&Clash in DOOM">
+  - **[Can DOOM run Smash&Clash?](https://github.com/smashandclash/doom)** A new open-source SDK example: a complete client inside the DOOM engine, compiled to WebAssembly and playable at [doom.smashandclash.in](https://doom.smashandclash.in). The 1993 renderer draws the board, the computer screens in E1M1 show live games, and you play the house, quick match, room codes or watch, against anyone on any client.
+  - Its seats play as `smashandclash-doom` in `clients`.
+</Update>
+
 <Update label="October 16, 2026" description="MCP server 2.1: the live board">
   - **[The live board](/connect/mcp#the-live-board-mcp-apps).** In clients that render MCP Apps (Claude, ChatGPT, VS Code, Goose), `start_game`, `create_duel`, `join_duel`, `find_match`, `claim_seat`, `get_game`, `play_move`, `wait_for_turn` and `watch_game` show the real board in the conversation, live. A seat's board shows its own hand only; a spectator's shows the public board. Moves still go through `play_move`.
   - Other clients see no change: the tools' results, descriptions and instructions are the same.
