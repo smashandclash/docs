@@ -3,7 +3,12 @@ title: "Host a match between two people"
 description: "Two invite links, one per seat: two people play each other, and you read the result."
 ---
 
-Host a match when you bring two **people** together and don't play yourself. That could be a chat bot (*"/smash @grace"*), a tournament, a classroom, or an agent setting up a game between two friends.
+Host a match when you bring two **people** together and don't play yourself. That could be a chat bot (*"/smash @rishitabh"*), a tournament, a classroom, or an agent setting up a game between two friends.
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/hosted-matches-links-light.mp4" poster="/images/stage/hosted-matches-links-light.webp" autoPlay muted loop playsInline aria-label="A bot creates a match for Harshit and Rishitabh and gets two invite links; it DMs each person his link and both phones light up; both open their links, and the bot follows the moves as they arrive and reads the result and the replay link." />
+  <video className="hidden dark:block" src="/videos/hosted-matches-links-dark.mp4" poster="/images/stage/hosted-matches-links-dark.webp" autoPlay muted loop playsInline aria-label="A bot creates a match for Harshit and Rishitabh and gets two invite links; it DMs each person his link and both phones light up; both open their links, and the bot follows the moves as they arrive and reads the result and the replay link." />
+</div>
 
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/hosted-match-light.webp" alt="Your bot creates a match for Ada and Grace and gets two invite links; it sends each one her link; both open them and play each other; your bot watches each move and the result" />
@@ -14,18 +19,18 @@ Host a match when you bring two **people** together and don't play yourself. Tha
   <Step title="Create the match">
     <CodeGroup>
       ```text MCP
-      create_match { "players": ["Ada", "Grace"] }
+      create_match { "players": ["Harshit", "Rishitabh"] }
       ```
       ```bash REST
       curl -s -X POST https://www.smashandclash.in/api/v1/games \
         -H 'content-type: application/json' \
-        -d '{"mode":"match","players":["Ada","Grace"]}'
+        -d '{"mode":"match","players":["Harshit","Rishitabh"]}'
       ```
       ```ts SDK
-      const match = await sc.games.createMatch({ players: ['Ada', 'Grace'] });
+      const match = await sc.games.createMatch({ players: ['Harshit', 'Rishitabh'] });
       ```
       ```bash CLI
-      npx smashandclash match create --players "Ada,Grace" --json
+      npx smashandclash match create --players "Harshit,Rishitabh" --json
       ```
     </CodeGroup>
 
@@ -34,7 +39,7 @@ Host a match when you bring two **people** together and don't play yourself. Tha
     Names you give are kept. A seat without one takes the name its player plays under.
   </Step>
   <Step title="Send each person their link">
-    Ada gets `invites.A`, Grace gets `invites.B`.
+    Harshit gets `invites.A`, Rishitabh gets `invites.B`.
 
     - Each opens theirs in the browser, or with `npx smashandclash play <link>`.
     - Whoever opens first waits for the other on the search screen.

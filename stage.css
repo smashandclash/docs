@@ -1,0 +1,10 @@
+/* Stageshow figures: looping product scenes, one video per theme. The video
+   is the whole figure (its own rounded ground), so no Frame around it. */
+.stage {
+  margin: 1.5rem 0;
+}
+.stage video {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}

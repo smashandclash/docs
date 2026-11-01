@@ -3,9 +3,14 @@ title: "One game, every client"
 description: "Smash&Clash is one game network with many clients: a player on any client can play a player on any other."
 ---
 
-Maya is playing in her browser, on smashandclash.in. Her opponent is playing on a whiteboard. Someone else is in a terminal, someone on a Nintendo DS, someone in Telegram, and an agent is playing over MCP. Any of them can play any of the others.
+Harshit is playing on a tldraw whiteboard. His opponent, Rishitabh, is playing in Minecraft. Someone else is on smashandclash.in, someone in GTA V, someone in a terminal, someone on a Nintendo DS, someone in Telegram, and an agent is playing over MCP. Any of them can play any of the others.
 
 It works the way email does. You're on one mail app, your friend is on another, and the mail arrives because both speak the same language. Smash&Clash does it for a game: every client connects to one **game network**, which keeps the rules, every move, every player, the rooms and the quick-match queue. Each client is a window onto the same games.
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/clients-network-light.mp4" poster="/images/stage/clients-network-light.webp" autoPlay muted loop playsInline aria-label="Smash&Clash played inside other apps, one game on the network. Harshit plays room K7QF2M on a tldraw board; Rishitabh, across the table from him in Minecraft, plays Pengu on C2 from his hotbar, and the move shows in his chat and then on Harshit's board as the last move, with Harshit's turn. In GTA V, a player presses Quick match and waits in the queue every Smash&Clash app shares." />
+  <video className="hidden dark:block" src="/videos/clients-network-dark.mp4" poster="/images/stage/clients-network-dark.webp" autoPlay muted loop playsInline aria-label="Smash&Clash played inside other apps, one game on the network. Harshit plays room K7QF2M on a tldraw board; Rishitabh, across the table from him in Minecraft, plays Pengu on C2 from his hotbar, and the move shows in his chat and then on Harshit's board as the last move, with Harshit's turn. In GTA V, a player presses Quick match and waits in the queue every Smash&Clash app shares." />
+</div>
 
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/clients-network-light.webp" alt="One game network, many clients: smashandclash.in (web, Android, Windows, Discord, Whop), a whiteboard (tldraw), Telegram, the terminal, the retro clients (Nintendo DS, PSP, GBA), agents over MCP (Claude, Poke, the Agent plugin) and your own client all connect to the Smash&Clash game network. Players on different clients play each other: Maya on the website against Harsh on a whiteboard, a quick match between a DS and a terminal, a room by code between an agent and your app." />
@@ -33,16 +38,28 @@ The main layer is always people playing people. A seat doesn't have to be a pers
 
 ### Rooms
 
-Maya presses **Play a friend → Create room** on smashandclash.in and gets a code. Whoever she sends it to plays her from whatever they use:
+Harshit presses **Play a friend → Create room** on smashandclash.in and gets a code. Whoever he sends it to plays him from whatever they use:
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/clients-rooms-light.mp4" poster="/images/stage/clients-rooms-light.webp" autoPlay muted loop playsInline aria-label="Harshit opens Play a friend on smashandclash.in and creates a room: the code K7QF2M appears with Copy code, Copy link and a QR. In a terminal, Rishitabh runs npx smashandclash open K7QF2M and joins room K7QF2M, playing Harshit; Harshit's sheet shows Rishitabh joined." />
+  <video className="hidden dark:block" src="/videos/clients-rooms-dark.mp4" poster="/images/stage/clients-rooms-dark.webp" autoPlay muted loop playsInline aria-label="Harshit opens Play a friend on smashandclash.in and creates a room: the code K7QF2M appears with Copy code, Copy link and a QR. In a terminal, Rishitabh runs npx smashandclash open K7QF2M and joins room K7QF2M, playing Harshit; Harshit's sheet shows Rishitabh joined." />
+</div>
 
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/clients-code-light.webp" alt="Maya creates a room on smashandclash.in and gets the code K7QF2M and its join link. Any one of these joins it: a friend on the website (Join), a terminal (smashandclash open K7QF2M), Telegram or any SDK app (sc.games.open), or an agent over MCP (join_duel). It is one game on the network, and anyone can watch it on smashandclash.in/watch." />
   <img className="hidden dark:block" src="/images/diagrams/clients-code-dark.webp" alt="Maya creates a room on smashandclash.in and gets the code K7QF2M and its join link. Any one of these joins it: a friend on the website (Join), a terminal (smashandclash open K7QF2M), Telegram or any SDK app (sc.games.open), or an agent over MCP (join_duel). It is one game on the network, and anyone can watch it on smashandclash.in/watch." />
 </Frame>
 
+The same code works from a friend on the website (**Join**), a terminal (`smashandclash open K7QF2M`), Telegram or any SDK app (`sc.games.open`), or an agent over MCP (`join_duel`). It is one game on the network, and anyone can watch it on smashandclash.in/watch.
+
 It works the other way round too: a code made in the terminal (`smashandclash duel create`), by an agent (`create_duel`) or in your app (`createDuel()`) goes in the website's **Join** box. Once the room is full, the same code opens it to watch.
 
 ### Quick match
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/clients-queue-light.mp4" poster="/images/stage/clients-queue-light.webp" autoPlay muted loop playsInline aria-label="Claude over MCP (find_match, opponent agent), my-app with the SDK (games.quickMatch, Classic), Harshit pressing PLAY on smashandclash.in and Rishitabh running smashandclash quick --opponent person all wait in one quick-match queue. Harshit and Rishitabh play the same ruleset and each accepts the other, so they are paired into one game, rated because both brought a rating; Claude and my-app keep waiting." />
+  <video className="hidden dark:block" src="/videos/clients-queue-dark.mp4" poster="/images/stage/clients-queue-dark.webp" autoPlay muted loop playsInline aria-label="Claude over MCP (find_match, opponent agent), my-app with the SDK (games.quickMatch, Classic), Harshit pressing PLAY on smashandclash.in and Rishitabh running smashandclash quick --opponent person all wait in one quick-match queue. Harshit and Rishitabh play the same ruleset and each accepts the other, so they are paired into one game, rated because both brought a rating; Claude and my-app keep waiting." />
+</div>
 
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/clients-queue-light.webp" alt="smashandclash.in (PLAY), a terminal (smashandclash quick), any SDK app (games.quickMatch) and an agent over MCP (find_match) all wait in one quick-match queue. Two players are paired when they play the same ruleset and each accepts the other (person, agent or any). The game is rated when both players bring a rating." />
@@ -70,8 +87,8 @@ Whatever one client shares, every other opens:
 Every game says which client each seat plays from, in `clients`:
 
 ```json
-"players": { "A": "Maya", "B": "Harsh" },
-"clients": { "A": "smashandclash.in", "B": "tldraw-board" }
+"players": { "A": "Harshit", "B": "Rishitabh" },
+"clients": { "A": "smashandclash.in", "B": "smashandclash-cli" }
 ```
 
 The website names its surface (`smashandclash.in`, `android`, `windows`, `discord`, `whop`, `glasses`). The CLI is `smashandclash-cli`, Telegram `smashandclash-telegram`, the whiteboard `tldraw`, the retro consoles `smashandclash-ds` and `smashandclash-psp`, Minecraft `minecraft` (Java) and `minecraft-bedrock`, GTA V `fivem`, DOOM `smashandclash-doom`, agents over MCP `mcp`, and any other SDK app the name it passes as `client`.
@@ -89,16 +106,16 @@ A client can send its player's rating (their ELO, as the client keeps it) when i
   const sc = new SmashAndClash({ client: 'my-app/1.0' });
 
   // host: share the code, or its link
-  const room = await sc.games.createDuel({ name: 'Maya', as: 'person', rating: 1180 });
+  const room = await sc.games.createDuel({ name: 'Harshit', as: 'person', rating: 1180 });
   console.log(room.code, room.joinLink);   // K7QF2M  https://www.smashandclash.in/?join=K7QF2M
 
   // join: open whatever a player pasted, from any client
-  const opened = await sc.games.open(pasted, { name: 'Harsh', as: 'person', rating: 1240 });
+  const opened = await sc.games.open(pasted, { name: 'Rishitabh', as: 'person', rating: 1240 });
   if (opened.kind === 'game') await opened.game.playOut(myStrategy);   // a code or an invite: a seat
   if (opened.kind === 'watch') console.log(opened.game.board);         // a watch link, or a full room
 
   // quick match: the queue every client waits in
-  const game = await sc.games.quickMatch({ name: 'Harsh', as: 'person', opponent: 'person', rating: 1240 });
+  const game = await sc.games.quickMatch({ name: 'Rishitabh', as: 'person', opponent: 'person', rating: 1240 });
   if (game.waiting) await game.waitForOpponent();
   // changed your mind? leave() never resigns a pairing that just landed
   ```
@@ -120,7 +137,7 @@ A client can send its player's rating (their ELO, as the client keeps it) when i
   # join any client's room
   curl -s -X POST https://www.smashandclash.in/api/v1/games/join \
     -H 'content-type: application/json' -H 'x-sdk: smashandclash-sdk/0.5.0 my-app/1.0' \
-    -d '{"code":"K7QF2M","name":"Harsh","as":"person","rating":1240}'
+    -d '{"code":"K7QF2M","name":"Rishitabh","as":"person","rating":1240}'
 
   # the game a code belongs to (to watch it)
   curl -s https://www.smashandclash.in/api/v1/games/code/K7QF2M

@@ -15,6 +15,11 @@ import { SmashAndClash, greedyMove } from '@smashandclash/sdk';
 const sc = new SmashAndClash();   // { baseUrl?, fetch?, retries?, client? }
 ```
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/sdk-code-light.mp4" poster="/images/stage/sdk-code-light.webp" autoPlay muted loop playsInline aria-label="An editor holds the SDK snippet: startHouse, play('Pengu@C2'), playOut(greedyMove) and console.log of the winner and replay link. In a terminal, npx tsx play.ts runs it; each line lights as it runs and the output prints 12 legal moves, then the winner and the replay link." />
+  <video className="hidden dark:block" src="/videos/sdk-code-dark.mp4" poster="/images/stage/sdk-code-dark.webp" autoPlay muted loop playsInline aria-label="An editor holds the SDK snippet: startHouse, play('Pengu@C2'), playOut(greedyMove) and console.log of the winner and replay link. In a terminal, npx tsx play.ts runs it; each line lights as it runs and the output prints 12 legal moves, then the winner and the replay link." />
+</div>
+
 ## In a browser
 
 Import it from your bundle, or serve its `dist/index.js` as a JavaScript module, and call `new SmashAndClash()`. The SDK binds the browser's `fetch` correctly, and the API accepts its cross-origin headers. Upgrade older 0.2.0 clients instead of carrying their fetch workaround forward.
@@ -99,13 +104,13 @@ See [Players and leaderboards](/players).
 
 ```ts
 // your agent against a person
-const duel = await sc.games.createDuel({ name: 'Claude', opponent: 'person', opponentName: 'Ada' });
+const duel = await sc.games.createDuel({ name: 'Claude', opponent: 'person', opponentName: 'Rishitabh' });
 console.log(duel.inviteUrl); // share only with the intended player
 await duel.waitForOpponent();
 await duel.playOut(greedyMove);
 
 // two people, hosted
-const match = await sc.games.createMatch({ players: ['Ada', 'Grace'] });
+const match = await sc.games.createMatch({ players: ['Harshit', 'Rishitabh'] });
 console.log(match.invites.A, match.invites.B); // one link per player
 const end = await match.waitForEnd();
 if (end.status === 'finished') console.log((await match.review()).accuracy);
@@ -119,10 +124,10 @@ const game = await sc.games.quickMatch({ opponent: 'any' });
 ## Hosted Agent Challenges
 
 ```ts
-const ch = await sc.challenges.create({ agent: 'claude', challenger: 'Ada' });
+const ch = await sc.challenges.create({ agent: 'claude', challenger: 'Rishitabh' });
 const done = await sc.challenges.waitForResult(ch.token);   // every 15 s, up to 30 min; may still be pending
 await sc.agents.profile('claude');
-await sc.agents.matches('claude', { challenger: 'Ada', limit: 20 });
+await sc.agents.matches('claude', { challenger: 'Rishitabh', limit: 20 });
 ```
 
 ## Webhooks

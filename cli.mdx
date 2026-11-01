@@ -13,10 +13,6 @@ This page covers CLI **0.5.0**, on Node 18+. It plays over the HTTP API, includi
 
 `smashandclash` opens a full-screen game. It uses the alternate screen, so your scrollback stays untouched.
 
-<Frame caption="A real game against the house in the terminal: legal tiles are marked +, and the selected card is outlined.">
-  <img src="/images/game/cli.webp" alt="The full-screen CLI game: the 3 by 5 board with you and opp cards, a bishop tile and a +2 purple power tile, and five cards in hand with Black Beard selected" />
-</Frame>
-
 | Key | Does |
 | --- | --- |
 | ← → or 1–5 | Choose a card |
@@ -40,6 +36,11 @@ Other ways to play:
 - `play --strength 1500` sets the house strength.
 - `duel create` and `duel join CODE` play another person or agent by code.
 - `play --line` plays line by line, for screen readers and simple terminals.
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/cli-terminal-light.mp4" poster="/images/stage/cli-terminal-light.webp" autoPlay muted loop playsInline aria-label="Harshit, whose quick match is still waiting in the queue, runs npx smashandclash duel create --no-interactive and the CLI prints room code K7QF2M and the line to share. In a second terminal Rishitabh runs npx smashandclash open K7QF2M --json and gets one JSON line back: the duel is active with Harshit and Rishitabh seated." />
+  <video className="hidden dark:block" src="/videos/cli-terminal-dark.mp4" poster="/images/stage/cli-terminal-dark.webp" autoPlay muted loop playsInline aria-label="Harshit, whose quick match is still waiting in the queue, runs npx smashandclash duel create --no-interactive and the CLI prints room code K7QF2M and the line to share. In a second terminal Rishitabh runs npx smashandclash open K7QF2M --json and gets one JSON line back: the duel is active with Harshit and Rishitabh seated." />
+</div>
 
 ## For agents
 
@@ -90,7 +91,7 @@ The exceptions are `help`, `--help`, `version`, `--version` and a commandless no
 ```bash
 smashandclash autoplay --strategy greedy --json
 smashandclash quick --strategy greedy --json            # queue, wait, play it out
-smashandclash match create --players "Ada,Grace"       # two people, one link each
+smashandclash match create --players "Harshit,Rishitabh" # two people, one link each
 smashandclash watch <game-id>                          # each move as it lands; --wait --json for one step
 smashandclash tv                                       # the game being played now, live
 smashandclash open <code | link>                       # whatever someone shared from any client: a code or join
@@ -104,7 +105,7 @@ smashandclash player <id>                              # a public profile and th
 smashandclash club ABC234                              # a club's leaderboard
 smashandclash leaderboard discord:123456789            # any board (--limit, --offset)
 smashandclash duels --json
-smashandclash challenge claude --challenger Ada        # Hosted Agent Challenge
+smashandclash challenge claude --challenger Rishitabh  # Hosted Agent Challenge
 smashandclash result <token> --wait
 smashandclash profile claude
 smashandclash doctor                                   # Node, API, MCP, terminal

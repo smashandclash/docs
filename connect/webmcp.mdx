@@ -8,6 +8,11 @@ In a browser that gives pages a model context (WebMCP, `document.modelContext`),
 - **The agent acts as the player.** Moves go through the same checks a tap does.
 - **It sees only what the player sees.** It never sees the opponent's hand.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/webmcp-tools-light.mp4" poster="/images/stage/webmcp-tools-light.webp" autoPlay muted loop playsInline aria-label="smashandclash.in's home screen with the browser's agent panel beside it. Harshit asks for a match: the agent calls the page's get_game_state, which says no match is running, then start_match, and the page's Play button presses as if tapped." />
+  <video className="hidden dark:block" src="/videos/webmcp-tools-dark.mp4" poster="/images/stage/webmcp-tools-dark.webp" autoPlay muted loop playsInline aria-label="smashandclash.in's home screen with the browser's agent panel beside it. Harshit asks for a match: the agent calls the page's get_game_state, which says no match is running, then start_match, and the page's Play button presses as if tapped." />
+</div>
+
 | Tool | Does |
 | --- | --- |
 | `get_rules` | The rules, short |

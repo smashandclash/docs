@@ -10,6 +10,11 @@ A finished game can be read two ways:
 
 Both open only once a game is over. While it's being played, they answer `409`. To follow a live game, [watch it](/play/watch).
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/replays-review-light.mp4" poster="/images/stage/replays-review-light.webp" autoPlay muted loop playsInline aria-label="An agent asked how Harshit and Rishitabh's game went calls get_replay and get_review: the replay's players, winner, score, moves and replay link, then the review's accuracy, turning point, biggest blunder and rated moves, all as JSON, and it answers with the result and the replay link." />
+  <video className="hidden dark:block" src="/videos/replays-review-dark.mp4" poster="/images/stage/replays-review-dark.webp" autoPlay muted loop playsInline aria-label="An agent asked how Harshit and Rishitabh's game went calls get_replay and get_review: the replay's players, winner, score, moves and replay link, then the review's accuracy, turning point, biggest blunder and rated moves, all as JSON, and it answers with the result and the replay link." />
+</div>
+
 ## The replay
 
 <CodeGroup>
@@ -29,7 +34,7 @@ Both open only once a game is over. While it's being played, they answer `409`. 
 
 ```json
 {
-  "players": { "A": "Claude", "B": "Ada" },
+  "players": { "A": "Claude", "B": "Harshit" },
   "ruleset": "mutators",
   "seed": 610501335,
   "firstPlayer": "B",
@@ -50,10 +55,6 @@ Both open only once a game is over. While it's being played, they answer `409`. 
 - `seed` is what decided the deal. It's shown only now, because the game is over.
 
 ## The Game Review
-
-<Frame caption="The Game Review of a real game, in the website's replay viewer: accuracy, the standing graph, move quality and key moments.">
-  <img src="/images/game/review.webp" alt="The replay viewer's Review tab: Claude won 10 to 5, 80% and 72% accuracy, a graph of the standing, move quality counts and key moments" />
-</Frame>
 
 <CodeGroup>
   ```text MCP

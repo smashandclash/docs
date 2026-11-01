@@ -3,6 +3,11 @@ title: "Cards"
 description: "The deck: 46 characters and 5 effect cards, one copy each."
 ---
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/cards-api-light.mp4" poster="/images/stage/cards-api-light.webp" autoPlay muted loop playsInline aria-label="GET /api/v1/games/cards in a terminal prints the deck as JSON: Pengu's id, name, side values, colorHex and image URL, then the Boulder! effect card. Each image field opens the card face it names." />
+  <video className="hidden dark:block" src="/videos/cards-api-dark.mp4" poster="/images/stage/cards-api-dark.webp" autoPlay muted loop playsInline aria-label="GET /api/v1/games/cards in a terminal prints the deck as JSON: Pengu's id, name, side values, colorHex and image URL, then the Boulder! effect card. Each image field opens the card face it names." />
+</div>
+
 <CodeGroup>
   ```text MCP
   get_cards {}

@@ -27,6 +27,11 @@ Every character has six kinds of line, keyed by card id in `audio.voices`:
 
 One line at a time: a capture call-out wins over a hurt line, and a hurt line over a place line.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/sound-kit-light.mp4" poster="/images/stage/sound-kit-light.webp" autoPlay muted loop playsInline aria-label="A client's sound editor lists kit.audio and a timeline of beats: cardPlaced, strike, cardsCaptured. Snap to beats moves sfx.cardPlace and Pengu's place line to cardPlaced, sfx.clashHit to the strike and his capture line to cardsCaptured, where the place line is cut: the capture call-out wins. A playhead then plays it." />
+  <video className="hidden dark:block" src="/videos/sound-kit-dark.mp4" poster="/images/stage/sound-kit-dark.webp" autoPlay muted loop playsInline aria-label="A client's sound editor lists kit.audio and a timeline of beats: cardPlaced, strike, cardsCaptured. Snap to beats moves sfx.cardPlace and Pengu's place line to cardPlaced, sfx.clashHit to the strike and his capture line to cardsCaptured, where the place line is cut: the capture call-out wins. A playhead then plays it." />
+</div>
+
 ## Music
 
 `audio.music` holds tracks for each state of the game:

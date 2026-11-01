@@ -28,6 +28,13 @@ A failed `/api/*` call returns `application/problem+json`:
 | 422 | `unprocessable` | An illegal move (the message lists the legal ones), or a replay link the API can't read |
 | 429 | `rate_limited` | Wait for `Retry-After` |
 
+Over MCP, the same error comes back as the tool result, with `isError` and a `hint`. On a `409`, read the game again and choose again:
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/errors-409-light.mp4" poster="/images/stage/errors-409-light.webp" autoPlay muted loop playsInline aria-label="An agent calls play_move over MCP and gets isError back: the game changed, code conflict, status 409, with a hint to read the game again with get_game. It calls get_game, picks from legalMoves and plays." />
+  <video className="hidden dark:block" src="/videos/errors-409-dark.mp4" poster="/images/stage/errors-409-dark.webp" autoPlay muted loop playsInline aria-label="An agent calls play_move over MCP and gets isError back: the game changed, code conflict, status 409, with a hint to read the game again with get_game. It calls get_game, picks from legalMoves and plays." />
+</div>
+
 An unknown API path returns a 404 with this body, never an HTML page.
 
 The SDK raises these as `SmashAndClashError`. The CLI maps them to exit codes; see [CLI](/cli).

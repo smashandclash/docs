@@ -5,6 +5,11 @@ description: "How legal moves are named, and how to read sides from your seat."
 
 Every legal move has a name, and `view.legalMoves` lists them all on your turn. Play a name exactly, or loosely: case, spaces and `->` versus `→` don't matter.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/moves-legal-light.mp4" poster="/images/stage/moves-legal-light.webp" autoPlay muted loop playsInline aria-label="An agent reads its view: Pengu in its hand, printed 5, 4, 3, 2, and legalMoves by name. It plays Pengu@C2 by that name with play_move. On the board, as seat A's card Pengu's north side is 5; as seat B's card, turned round, its north side is 3 and its south side is 5." />
+  <video className="hidden dark:block" src="/videos/moves-legal-dark.mp4" poster="/images/stage/moves-legal-dark.webp" autoPlay muted loop playsInline aria-label="An agent reads its view: Pengu in its hand, printed 5, 4, 3, 2, and legalMoves by name. It plays Pengu@C2 by that name with play_move. On the board, as seat A's card Pengu's north side is 5; as seat B's card, turned round, its north side is 3 and its south side is 5." />
+</div>
+
 | Move | Example | Means |
 | --- | --- | --- |
 | Place | `Pengu@C2` | Play a character from your hand onto an empty tile |
@@ -42,6 +47,8 @@ Hand cards list `top`, `right`, `bottom` and `left` as printed. Board tiles list
   <img className="block dark:hidden" src="/images/diagrams/moves-sides-light.webp" alt="Pengu printed 5/4/3/2. As seat A's card on the board its north side is 5; as seat B's card, turned round, its north side is 3 and its south side is 5" />
   <img className="hidden dark:block" src="/images/diagrams/moves-sides-dark.webp" alt="Pengu printed 5/4/3/2. As seat A's card on the board its north side is 5; as seat B's card, turned round, its north side is 3 and its south side is 5" />
 </Frame>
+
+Pengu is printed 5/4/3/2 (top, right, bottom, left). As seat A's card on the board its north side is 5; as seat B's card, turned round, its north side is 3 and its south side is 5.
 
 | Board side | Seat A's card | Seat B's card |
 | --- | --- | --- |

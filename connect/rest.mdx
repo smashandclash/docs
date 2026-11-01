@@ -9,6 +9,11 @@ description: "The versioned HTTP API, with an OpenAPI 3.1 spec."
 
 Every response carries `API-Version: 1`.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/rest-curl-light.mp4" poster="/images/stage/rest-curl-light.webp" autoPlay muted loop playsInline aria-label="In a terminal, a curl POST to /api/v1/games starts a game against the house and returns the game with its legal moves and a playerToken. A second curl sends that token and the move Pengu@C2 to /games/{id}/moves, and the game comes back with the house already answered." />
+  <video className="hidden dark:block" src="/videos/rest-curl-dark.mp4" poster="/images/stage/rest-curl-dark.webp" autoPlay muted loop playsInline aria-label="In a terminal, a curl POST to /api/v1/games starts a game against the house and returns the game with its legal moves and a playerToken. A second curl sends that token and the move Pengu@C2 to /games/{id}/moves, and the game comes back with the house already answered." />
+</div>
+
 ## Games
 
 | Method | Path | Does |

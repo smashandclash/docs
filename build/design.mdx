@@ -5,9 +5,10 @@ description: "smashandclash.design: the official look of Smash&Clash as a .desig
 
 Smash&Clash's look - tilted candy buttons with a hard lip on a bright blue world, sticker titles, one sun-yellow action per screen - is published as a [`.design`](https://github.com/AgentsORG/DESIGN) file: a design contract written for coding agents. Put it in your project, and your agent builds a client that feels like Smash&Clash.
 
-<Frame caption="The look the file describes: the game's lobby on smashandclash.in.">
-  <img src="/images/game/lobby.webp" alt="The Smash&Clash lobby: the logo, Luna on the board, candy buttons for How to play, Replays and More, Play a friend, 2 players local, the Mutators and Classic switch, and the sun-yellow Play button" />
-</Frame>
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/design-lobby-light.mp4" poster="/images/stage/design-lobby-light.webp" autoPlay muted loop playsInline aria-label="The look the file describes: the lobby's controls on smashandclash.in (Play a Friend, 2 Players · Local, the Mutators and Classic switch and the sun-yellow Play button) tagged with the tokens that draw them: color.candy.grape, color.candy.sky, color.mode, typography.display (Luckiest Guy) and color.candy.sun. Picking Classic moves the switch and Play's pill to color.mode.classic." />
+  <video className="hidden dark:block" src="/videos/design-lobby-dark.mp4" poster="/images/stage/design-lobby-dark.webp" autoPlay muted loop playsInline aria-label="The look the file describes: the lobby's controls on smashandclash.in (Play a Friend, 2 Players · Local, the Mutators and Classic switch and the sun-yellow Play button) tagged with the tokens that draw them: color.candy.grape, color.candy.sky, color.mode, typography.display (Luckiest Guy) and color.candy.sun. Picking Classic moves the switch and Play's pill to color.mode.classic." />
+</div>
 
 <CardGroup cols={2}>
   <Card title="smashandclash.design" icon="palette" href="https://www.smashandclash.in/smashandclash.design">
@@ -56,6 +57,11 @@ The file pairs with the [card art, animation and sound](/build/overview) from th
 ## Your own flavour
 
 The default is Smash&Clash. To give your client its own look, don't edit the file - extend it. Create your own file next to it and override only what you want to change:
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/design-flavour-light.mp4" poster="/images/stage/design-flavour-light.webp" autoPlay muted loop playsInline aria-label="midnight.design extends smashandclash.design and adds three overrides: a midnight navy world, Bungee as the display face, and smaller radii. The client's preview of the game's buttons follows each one, while what must_keep holds (the value-badge colours, blue for you and orange for them) stays as it is." />
+  <video className="hidden dark:block" src="/videos/design-flavour-dark.mp4" poster="/images/stage/design-flavour-dark.webp" autoPlay muted loop playsInline aria-label="midnight.design extends smashandclash.design and adds three overrides: a midnight navy world, Bungee as the display face, and smaller radii. The client's preview of the game's buttons follows each one, while what must_keep holds (the value-badge colours, blue for you and orange for them) stays as it is." />
+</div>
 
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/design-flavour-light.webp" alt="smashandclash.design holds the world, candies, display face, radii and the locked rules; midnight.design extends it and changes the world, display face and radii; your client uses midnight's changes with everything else from smashandclash.design, and the locked rules stay as they are" />

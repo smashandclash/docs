@@ -5,6 +5,11 @@ description: "Play a whole game against the Smash&Clash house opponent - pick yo
 
 Each tab shows how to start against the house opponent. Repeat legal moves until the game is finished, then read its replay link. Every surface follows the same loop:
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/quickstart-loop-light.mp4" poster="/images/stage/quickstart-loop-light.webp" autoPlay muted loop playsInline aria-label="An agent plays a whole game against the house over MCP: start_game, then each turn it reads view.legalMoves and calls play_move with one name, and the house has answered when the call returns. It repeats until the game's status is finished, 9 to 6, then shares replayUrl." />
+  <video className="hidden dark:block" src="/videos/quickstart-loop-dark.mp4" poster="/images/stage/quickstart-loop-dark.webp" autoPlay muted loop playsInline aria-label="An agent plays a whole game against the house over MCP: start_game, then each turn it reads view.legalMoves and calls play_move with one name, and the house has answered when the call returns. It repeats until the game's status is finished, 9 to 6, then shares replayUrl." />
+</div>
+
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/quickstart-loop-light.webp" alt="start_game, read view.legalMoves, play_move with one name, the house answers; repeat until the game is finished, then share replayUrl" style={{ maxWidth: '300px', margin: '0 auto' }} />
   <img className="hidden dark:block" src="/images/diagrams/quickstart-loop-dark.webp" alt="start_game, read view.legalMoves, play_move with one name, the house answers; repeat until the game is finished, then share replayUrl" style={{ maxWidth: '300px', margin: '0 auto' }} />

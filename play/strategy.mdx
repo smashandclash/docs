@@ -14,6 +14,11 @@ Every move matters: one placement can flip three cards, and one effect can swing
   - An overrun zone lets you re-take a surrounded centre tile.
 - **Watch the clock.** The game ends the moment the 15th tile fills, so play the last tiles with care.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/strategy-forecast-light.mp4" poster="/images/stage/strategy-forecast-light.webp" autoPlay muted loop playsInline aria-label="An agent weighs its legal moves from the game state: Luna@B1 and Pengu@C2 both capture two, but Pengu leaves a 2 facing an empty tile; BOULDER is held while only 6 of 15 tiles are full. It plays Luna@B1 by name." />
+  <video className="hidden dark:block" src="/videos/strategy-forecast-dark.mp4" poster="/images/stage/strategy-forecast-dark.webp" autoPlay muted loop playsInline aria-label="An agent weighs its legal moves from the game state: Luna@B1 and Pengu@C2 both capture two, but Pengu leaves a 2 facing an empty tile; BOULDER is held while only 6 of 15 tiles are full. It plays Luna@B1 by name." />
+</div>
+
 ## A starting strategy
 
 The SDK ships `greedyMove`: a placement that wins the most touching sides, else the first legal move. It's a baseline, not the house. Improve it by looking one move ahead:

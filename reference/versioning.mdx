@@ -5,6 +5,11 @@ description: "A stable v1, additive changes only, and six months' notice before 
 
 The REST surface is versioned in the path: `/api/v1/…`. Every response carries `API-Version: 1`.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/versioning-header-light.mp4" poster="/images/stage/versioning-header-light.webp" autoPlay muted loop playsInline aria-label="A curl request to /api/v1/agent names its app in the X-SDK header and the server answers API-Version: 1. The same request to the unversioned /api/agent also answers API-Version: 1, as a permanent alias of v1." />
+  <video className="hidden dark:block" src="/videos/versioning-header-dark.mp4" poster="/images/stage/versioning-header-dark.webp" autoPlay muted loop playsInline aria-label="A curl request to /api/v1/agent names its app in the X-SDK header and the server answers API-Version: 1. The same request to the unversioned /api/agent also answers API-Version: 1, as a permanent alias of v1." />
+</div>
+
 - **Within v1, only additive changes ship:** new fields, new optional parameters, new endpoints. Ignore fields you don't know.
 - **Breaking changes ship as a new major path** (`/api/v2/…`) and never change v1.
 - **A superseded version is announced at least six months ahead.** The announcement uses:

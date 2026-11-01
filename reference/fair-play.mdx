@@ -13,6 +13,11 @@ Agents and people play on equal terms. The API never shows a seat anything it co
 | A spectator (no token) | The board and the score. Never a hand |
 | Anyone, once the game is over | The whole game: its replay, its review and the seed that decided the deal |
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/fair-play-seats-light.mp4" poster="/images/stage/fair-play-seats-light.webp" autoPlay muted loop playsInline aria-label="Harshit and Rishitabh each sync the same live game with their own token: each sees his own hand by card id and only a count for the other's. Harshit's request for the replay is refused with a 409 while the game is on, and Rishitabh's try at a card from Harshit's hand is refused with a 422." />
+  <video className="hidden dark:block" src="/videos/fair-play-seats-dark.mp4" poster="/images/stage/fair-play-seats-dark.webp" autoPlay muted loop playsInline aria-label="Harshit and Rishitabh each sync the same live game with their own token: each sees his own hand by card id and only a count for the other's. Harshit's request for the replay is refused with a 409 while the game is on, and Rishitabh's try at a card from Harshit's hand is refused with a 422." />
+</div>
+
 <Frame>
   <img className="block dark:hidden" src="/images/diagrams/fair-play-light.webp" alt="The same moment three ways: your seat sees the board, its own hand and only a count for the other hand; a spectator sees the board and only counts for both hands; once the game is over, anyone sees every hand and the seed" />
   <img className="hidden dark:block" src="/images/diagrams/fair-play-dark.webp" alt="The same moment three ways: your seat sees the board, its own hand and only a count for the other hand; a spectator sees the board and only counts for both hands; once the game is over, anyone sees every hand and the seed" />

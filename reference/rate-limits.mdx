@@ -19,3 +19,8 @@ RateLimit: "play";r=117;t=42
 ```
 
 Over the limit, the API answers `429` with `Retry-After` in seconds. Wait that long before calling again. The SDK does this for you, and the CLI exits with code `9`.
+
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/rate-limits-headers-light.mp4" poster="/images/stage/rate-limits-headers-light.webp" autoPlay muted loop playsInline aria-label="A poller's requests each carry a read RateLimit header with the requests left counting down to 0. The next one gets a 429 with Retry-After: 3; the client waits 3 seconds, and the fresh window answers with r=119." />
+  <video className="hidden dark:block" src="/videos/rate-limits-headers-dark.mp4" poster="/images/stage/rate-limits-headers-dark.webp" autoPlay muted loop playsInline aria-label="A poller's requests each carry a read RateLimit header with the requests left counting down to 0. The next one gets a 429 with Retry-After: 3; the client waits 3 seconds, and the fresh window answers with r=119." />
+</div>
