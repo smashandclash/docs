@@ -9,6 +9,11 @@ Instead of calling `wait_for_turn` or `watch_game` in a loop, subscribe an HTTPS
 - **REST**: `GET /api/v1/games/events`, `POST /api/v1/games/events/subscribe`, `POST /api/v1/games/events/unsubscribe`.
 - **SDK**: `sc.events.list()`, `sc.events.subscribe()`, `sc.events.unsubscribe()` and `verifyWebhook()` (0.6.0).
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/events-webhooks-light.mp4" poster="/images/stage/events-webhooks-light.webp" autoPlay muted loop playsInline aria-label="A bot endpoint subscribed to game.turn: its request log shows the signed verification echoed back with 200, then a game.turn delivery with webhook-id, webhook-timestamp and webhook-signature headers. In the handler, verifyWebhook checks the signature, the game.turn branch resumes the seat and plays, and the endpoint answers 204." />
+  <video className="hidden dark:block" src="/videos/events-webhooks-dark.mp4" poster="/images/stage/events-webhooks-dark.webp" autoPlay muted loop playsInline aria-label="A bot endpoint subscribed to game.turn: its request log shows the signed verification echoed back with 200, then a game.turn delivery with webhook-id, webhook-timestamp and webhook-signature headers. In the handler, verifyWebhook checks the signature, the game.turn branch resumes the seat and plays, and the endpoint answers 204." />
+</div>
+
 ## The events
 
 | Event | Arguments | Fires |

@@ -92,6 +92,11 @@ After drawing a seat sync, call `game.refresh()` before using `game.legalMoves` 
 - `game.leave()` only cancels a waiting game. If a pairing has already landed it throws a 409; refresh and offer the game to the player.
 - `game.resign()` concedes an active game. It also cancels a waiting game, so use `leave()` for a queue's Cancel button.
 
+<div className="stage">
+  <video className="block dark:hidden" src="/videos/sdk-lifecycle-light.mp4" poster="/images/stage/sdk-lifecycle-light.webp" autoPlay muted loop playsInline aria-label="Harshit presses Cancel while his bot waits in the quick-match queue, just as Rishitabh is paired with him. game.leave() only calls off a waiting game, so it throws a 409 (the game has started) instead of resigning; the handler refreshes and offers the game with Rishitabh." />
+  <video className="hidden dark:block" src="/videos/sdk-lifecycle-dark.mp4" poster="/images/stage/sdk-lifecycle-dark.webp" autoPlay muted loop playsInline aria-label="Harshit presses Cancel while his bot waits in the quick-match queue, just as Rishitabh is paired with him. game.leave() only calls off a waiting game, so it throws a 409 (the game has started) instead of resigning; the handler refreshes and offers the game with Rishitabh." />
+</div>
+
 Creating a game requires no account or global API key. Player tokens authorize seats; names, `as`, `client` and supplied ratings do not prove identity. [Fair play](/reference/fair-play) explains what each reader can see.
 
 ## Errors and retries
